@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://dpvnlxfm6r816"]
+
+[ext_resource type="Script" uid="uid://b1g4xut3gsl3s" path="res://Scripts/Core/GameManager.cs" id="1_r5ka5"]
+[ext_resource type="Texture2D" uid="uid://coh7fu3x5h4j5" path="res://Assets/Sprites/UI/table1.png" id="2_tdndw"]
+[ext_resource type="PackedScene" uid="uid://dp71h8jh5gfla" path="res://Scenes/Components/StampStation.tscn" id="3_tdndw"]
+
+[node name="Gameplay" type="Node2D" unique_id=288264400]
+script = ExtResource("1_r5ka5")
+
+[node name="DeskBackground" type="Sprite2D" parent="." unique_id=12176850]
+texture_filter = 1
+position = Vector2(704, 475)
+texture = ExtResource("2_tdndw")
+
+[node name="UI_Layer" type="CanvasLayer" parent="." unique_id=1119207772]
+
+[node name="HUD" type="Control" parent="UI_Layer" unique_id=1920945935]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="DocumentDeskArea" type="Node2D" parent="." unique_id=1938667005]
+
+[node name="StampStation" parent="." unique_id=1011615191 instance=ExtResource("3_tdndw")]
+position = Vector2(1651, 487)
