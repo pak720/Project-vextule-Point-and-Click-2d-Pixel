@@ -4,8 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://jj4bmwy65rsk" path="res://Assets/Sprites/UI/Tray.png" id="2_2e7m6"]
 [ext_resource type="Script" uid="uid://cl3pni77e10vk" path="res://Scripts/Entities/Stamper.cs" id="3_2e7m6"]
 [ext_resource type="Texture2D" uid="uid://dg8fty480sggn" path="res://Assets/Sprites/UI/StamperApprove.png" id="3_rahdn"]
+[ext_resource type="Texture2D" uid="uid://bllstbsgumpns" path="res://Assets/Sprites/Documents/StampApprove.png" id="4_ngygd"]
 [ext_resource type="Texture2D" uid="uid://yrndqjwc0uvk" path="res://Assets/Sprites/UI/StamperDenied.png" id="4_oq6e6"]
 [ext_resource type="Texture2D" uid="uid://fek14i1vr4hy" path="res://Assets/Sprites/UI/StamperRecord.png" id="5_ngygd"]
+[ext_resource type="Texture2D" uid="uid://d0trl51i3pjnj" path="res://Assets/Sprites/Documents/StampDenied.png" id="6_uwgmb"]
+[ext_resource type="Texture2D" uid="uid://bfap3jh0kqgma" path="res://Assets/Sprites/Documents/StampRecord.png" id="8_mjhm8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xpcuk"]
 size = Vector2(114, 230)
@@ -91,6 +94,8 @@ shape = SubResource("RectangleShape2D_xpcuk")
 
 [node name="StamperApprove" type="Area2D" parent="StampTray" unique_id=1012549761]
 script = ExtResource("3_2e7m6")
+_inkTexture = ExtResource("4_ngygd")
+_inkOffset = Vector2(0, 70)
 
 [node name="Sprite2D" type="Sprite2D" parent="StampTray/StamperApprove" unique_id=923016078]
 position = Vector2(-121, -41)
@@ -102,6 +107,8 @@ shape = SubResource("RectangleShape2D_ntoot")
 
 [node name="StamperDenied" type="Area2D" parent="StampTray" unique_id=1149659315]
 script = ExtResource("3_2e7m6")
+_inkTexture = ExtResource("6_uwgmb")
+_inkOffset = Vector2(0, 60)
 
 [node name="Sprite2D" type="Sprite2D" parent="StampTray/StamperDenied" unique_id=472396618]
 position = Vector2(56, -38)
@@ -113,6 +120,8 @@ shape = SubResource("RectangleShape2D_uuun1")
 
 [node name="StamperRecord" type="Area2D" parent="StampTray" unique_id=697373773]
 script = ExtResource("3_2e7m6")
+_inkTexture = ExtResource("8_mjhm8")
+_inkOffset = Vector2(0, 60)
 
 [node name="Sprite2D" type="Sprite2D" parent="StampTray/StamperRecord" unique_id=978788149]
 position = Vector2(232, -38)

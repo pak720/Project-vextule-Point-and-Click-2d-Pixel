@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://b1g4xut3gsl3s" path="res://Scripts/Core/GameManager.cs" id="1_r5ka5"]
 [ext_resource type="Texture2D" uid="uid://coh7fu3x5h4j5" path="res://Assets/Sprites/UI/table1.png" id="2_tdndw"]
 [ext_resource type="PackedScene" uid="uid://dp71h8jh5gfla" path="res://Scenes/Components/StampStation.tscn" id="3_tdndw"]
+[ext_resource type="Texture2D" uid="uid://bfbhbtf7676h4" path="res://Assets/Sprites/UI/Tray_stuff.png" id="4_ovofm"]
+[ext_resource type="PackedScene" uid="uid://cxy7c6qjkc08y" path="res://Scenes/Components/Document.tscn" id="5_mofsa"]
 
 [node name="Gameplay" type="Node2D" unique_id=288264400]
 script = ExtResource("1_r5ka5")
@@ -22,5 +24,13 @@ offset_bottom = 40.0
 
 [node name="DocumentDeskArea" type="Node2D" parent="." unique_id=1938667005]
 
+[node name="Document2D" parent="DocumentDeskArea" unique_id=1044973207 instance=ExtResource("5_mofsa")]
+position = Vector2(918, 625)
+
 [node name="StampStation" parent="." unique_id=1011615191 instance=ExtResource("3_tdndw")]
 position = Vector2(1651, 487)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1241671986]
+texture_filter = 1
+position = Vector2(1384, 484)
+texture = ExtResource("4_ovofm")
