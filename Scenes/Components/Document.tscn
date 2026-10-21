@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://15u3xcxoge7q" path="res://Assets/Sprites/Documents/passport_new.png" id="2_w12mi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7xm62"]
-size = Vector2(381, 455)
+size = Vector2(265, 317)
 
 [node name="Document2D" type="Area2D" unique_id=1044973207 groups=["passport"]]
 script = ExtResource("1_w12mi")
@@ -14,5 +14,5 @@ scale = Vector2(0.98064524, 0.99444443)
 texture = ExtResource("2_w12mi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1253223365 groups=["passport"]]
-position = Vector2(1.5, -3.5)
+position = Vector2(2.5, -2.5)
 shape = SubResource("RectangleShape2D_7xm62")
