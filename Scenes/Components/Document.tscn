@@ -1,17 +1,18 @@
 [gd_scene format=3 uid="uid://cxy7c6qjkc08y"]
 
-[ext_resource type="Texture2D" uid="uid://de21umtyyex4l" path="res://Assets/Sprites/Documents/Passport_sample.png" id="1_hci8x"]
 [ext_resource type="Script" uid="uid://c1wqp73jnw04v" path="res://Scripts/Entities/Document2D.cs" id="1_w12mi"]
+[ext_resource type="Texture2D" uid="uid://15u3xcxoge7q" path="res://Assets/Sprites/Documents/passport_new.png" id="2_w12mi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7xm62"]
-size = Vector2(275, 327)
+size = Vector2(381, 455)
 
 [node name="Document2D" type="Area2D" unique_id=1044973207 groups=["passport"]]
 script = ExtResource("1_w12mi")
 
 [node name="PassportSprite" type="Sprite2D" parent="." unique_id=219446238 groups=["passport"]]
 scale = Vector2(0.98064524, 0.99444443)
-texture = ExtResource("1_hci8x")
+texture = ExtResource("2_w12mi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1253223365 groups=["passport"]]
+position = Vector2(1.5, -3.5)
 shape = SubResource("RectangleShape2D_7xm62")

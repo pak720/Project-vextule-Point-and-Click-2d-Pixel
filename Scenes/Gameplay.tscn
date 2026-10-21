@@ -25,6 +25,7 @@ offset_bottom = 40.0
 [node name="DocumentDeskArea" type="Node2D" parent="." unique_id=1938667005]
 
 [node name="Document2D" parent="DocumentDeskArea" unique_id=1044973207 instance=ExtResource("5_mofsa")]
+texture_filter = 1
 position = Vector2(918, 625)
 
 [node name="StampStation" parent="." unique_id=1011615191 instance=ExtResource("3_tdndw")]

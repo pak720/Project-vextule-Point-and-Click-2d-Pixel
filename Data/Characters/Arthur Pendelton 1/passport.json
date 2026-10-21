@@ -1,0 +1,13 @@
+{
+  "document_type": "passport",
+  "document_id": "SYL-7421-P",
+  "name": "Arthur Pendelton",
+  "gender": "M",
+  "birth_date": "2101-05-12",
+  "species": "human",
+  "issuing_country": "Kuseropia Repubationtopia",
+  "expiry_date": "2139-08-20",
+  "avatar_file": "res://Assets/Sprites/Characters/arthur_pendelton_avatar.png",
+  "is_valid": "true",
+  "error_note": ""
+}

@@ -1,0 +1,9 @@
+{
+  "document_type": "train_ticket",
+  "document_id": "SYL-7421-P",
+  "passenger_name": "Arthur Pendelton",
+  "train_id": "GATE13-EXPRESS-01",
+  "travel_date": "2134-10-19",
+  "is_valid": "true",
+  "error_note": ""
+}
