@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dp71h8jh5gfla" path="res://Scenes/Components/StampStation.tscn" id="3_tdndw"]
 [ext_resource type="Texture2D" uid="uid://bfbhbtf7676h4" path="res://Assets/Sprites/UI/Tray_stuff.png" id="4_ovofm"]
 [ext_resource type="PackedScene" uid="uid://cxy7c6qjkc08y" path="res://Scenes/Components/Document.tscn" id="5_mofsa"]
+[ext_resource type="Texture2D" uid="uid://c2jwv4m71veh6" path="res://Assets/Sprites/Documents/Train_ticket.png" id="6_u8j7u"]
 
 [node name="Gameplay" type="Node2D" unique_id=288264400]
 script = ExtResource("1_r5ka5")
@@ -35,3 +36,7 @@ position = Vector2(1651, 487)
 texture_filter = 1
 position = Vector2(1384, 484)
 texture = ExtResource("4_ovofm")
+
+[node name="TEST" type="Sprite2D" parent="." unique_id=1633082634]
+position = Vector2(629, 567)
+texture = ExtResource("6_u8j7u")
