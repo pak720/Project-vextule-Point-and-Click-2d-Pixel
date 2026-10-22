@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://blrn7ixam3fan"]
+
+[ext_resource type="Script" uid="uid://brophe4rv6q3u" path="res://Scripts/UI/IntroStoryController.cs" id="1_nqykt"]
+[ext_resource type="FontFile" uid="uid://cv8itb1pdaaqk" path="res://Assets/Fonts/fonts.ttf" id="1_vd31h"]
+[ext_resource type="Texture2D" uid="uid://dpupyr1xylfrg" path="res://Assets/Sprites/Backgrounds/intro_scene_01.png" id="2_k5m1j"]
+[ext_resource type="Texture2D" uid="uid://bekt7ma7fuamc" path="res://Assets/Sprites/Backgrounds/intro_scene_02.png" id="3_et13f"]
+[ext_resource type="Texture2D" uid="uid://ve3t2s5ph8u0" path="res://Assets/Sprites/Backgrounds/intro_scene_03.png" id="4_58vle"]
+
+[node name="IntroStory" type="Control" unique_id=93366239 node_paths=PackedStringArray("_dialogLabel", "_continueHint", "_backgroundRect")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nqykt")
+_dialogLabel = NodePath("DialogContainer/DialogLabel")
+_continueHint = NodePath("ContinueHint")
+_backgroundRect = NodePath("Background")
+_backgroundTextures = Array[Texture2D]([ExtResource("2_k5m1j"), ExtResource("3_et13f"), ExtResource("4_58vle")])
+
+[node name="Background" type="TextureRect" parent="." unique_id=1657502483]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+
+[node name="Overlay" type="ColorRect" parent="." unique_id=1413025808]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+color = Color(1, 1, 1, 0)
+
+[node name="DialogContainer" type="PanelContainer" parent="." unique_id=335783785]
+custom_minimum_size = Vector2(900, 140)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="DialogLabel" type="RichTextLabel" parent="DialogContainer" unique_id=44216895]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_vd31h")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ContinueHint" type="Label" parent="." unique_id=1001738578]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0

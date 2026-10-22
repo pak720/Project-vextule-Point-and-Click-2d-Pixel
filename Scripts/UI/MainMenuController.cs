@@ -8,16 +8,16 @@ public partial class MainMenuController : Control
     private Button _playButton;
     private Button _settingButton;
 
-    // Đường dẫn trỏ đến phân cảnh màn chơi chính trong dự án của bạn
-    [Export] private string _gameplayScenePath = "res://Scenes/Gameplay.tscn";
+    // Đường dẫn chuyển tiếp sang màn hình Intro Visual Novel sau khi bấm Play
+    [Export] private string _introScenePath = "res://Scenes/UI/IntroStory.tscn";
 
     public override void _Ready()
     {
-        // 1. Kết nối các Node nút bấm dựa trên cấu trúc cây phân cảnh Editor bạn vừa thiết lập
+        // 1. Kết nối các Node nút bấm từ cây phân cảnh của MainMenu.tscn
         _playButton = GetNode<Button>("VBoxContainer/PlayButton");
         _settingButton = GetNode<Button>("VBoxContainer/SettingButton");
 
-        // 2. Đăng ký sự kiện (Signal) lắng nghe hành động click chuột
+        // 2. Đăng ký sự kiện lắng nghe click chuột
         _playButton.Pressed += OnPlayButtonPressed;
         _settingButton.Pressed += OnSettingButtonPressed;
         
@@ -25,18 +25,17 @@ public partial class MainMenuController : Control
     }
 
     /// <summary>
-    /// Xử lý sự kiện khi người chơi bấm nút PLAY
+    /// Xử lý sự kiện khi người chơi bấm nút PLAY: Chuyển sang màn Intro dẫn dắt cốt truyện
     /// </summary>
     private void OnPlayButtonPressed()
     {
-        GD.Print("[Hệ thống UI]: Người chơi bấm PLAY -> Tiến hành chuyển sang màn chơi chính...");
+        GD.Print("[Hệ thống UI]: Người chơi bấm PLAY -> Chuyển tiếp sang IntroStory...");
         
-        // Chuyển scene sang màn hình Gameplay bằng API chuẩn của Godot 4.7
-        Error error = GetTree().ChangeSceneToFile(_gameplayScenePath);
+        Error error = GetTree().ChangeSceneToFile(_introScenePath);
         
         if (error != Error.Ok)
         {
-            GD.PrintErr($"[Hệ thống UI]: Không thể tải màn chơi chính! Mã lỗi: {error}");
+            GD.PrintErr($"[Hệ thống UI]: Không thể tải màn hình Intro! Mã lỗi: {error}");
         }
     }
 
@@ -45,18 +44,18 @@ public partial class MainMenuController : Control
     /// </summary>
     private void OnSettingButtonPressed()
     {
-        GD.Print("[Hệ thống UI]: Người chơi bấm SETTING -> (Tính năng đang chờ thiết kế giao diện từ GD)");
-        // TODO: Thực hiện bật Panel Popup cài đặt âm lượng hoặc đồ họa tại đây
+        GD.Print("[Hệ thống UI]: Người chơi bấm SETTING -> (Đang chờ hoàn thiện Panel cài đặt)");
+        // TODO: Mở Panel Popup cài đặt âm lượng / đồ họa tại đây
     }
 
     /// <summary>
-    /// GIẢI PHÁP AN TOÀN: Hàm hủy phân rã bộ nhớ được bọc bộ lọc kiểm tra thực thể vật lý
+    /// Hàm dọn dẹp bộ nhớ an toàn: Kiểm tra hợp lệ trước khi hủy đăng ký sự kiện
     /// </summary>
     protected override void Dispose(bool disposing)
     {
         if (disposing)
         {
-            // Chỉ thực hiện gỡ hàm khỏi bộ nhớ nếu các Node nút bấm này vẫn chưa bị dọn dẹp bởi cơ chế nội bộ của Godot
+            // Chỉ gỡ liên kết nếu các Node Button chưa bị engine giải phóng trước đó
             if (GodotObject.IsInstanceValid(_playButton))
             {
                 _playButton.Pressed -= OnPlayButtonPressed;
@@ -67,10 +66,9 @@ public partial class MainMenuController : Control
                 _settingButton.Pressed -= OnSettingButtonPressed;
             }
             
-            GD.Print("[Hệ thống UI]: Đã gỡ bỏ an toàn các liên kết sự kiện của Main Menu.");
+            GD.Print("[Hệ thống UI]: Đã giải phóng an toàn các liên kết sự kiện của Main Menu.");
         }
         
-        // Gọi hàm cơ sở để hoàn tất chu trình giải phóng bộ nhớ C++ của Engine
         base.Dispose(disposing);
     }
 }
