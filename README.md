@@ -15,7 +15,8 @@ vexatule/
 ├── Vexatule.csproj          # File cấu hình dự án C#
 │
 ├── Assets/                  # Chứa toàn bộ tài nguyên gốc (Art, Sound, Fonts)
-│   ├── Sprites/             # Hình ảnh, Texture 2D
+│   ├── Sprites/
+│   │   │── Backgrounds       # Hình ảnh, Texture 2D
 │   │   ├── UI/              # Giao diện bàn làm việc, các nút bấm, con dấu
 │   │   ├── Characters/      # Ảnh chân dung, quần áo của NPC
 │   │   └── Documents/       # Hình ảnh hộ chiếu, giấy phép, thẻ làm việc
