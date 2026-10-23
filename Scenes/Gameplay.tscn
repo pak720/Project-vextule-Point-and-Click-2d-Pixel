@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cxy7c6qjkc08y" path="res://Scenes/Components/Document.tscn" id="5_mofsa"]
 [ext_resource type="Texture2D" uid="uid://c2jwv4m71veh6" path="res://Assets/Sprites/Documents/Train_ticket.png" id="6_u8j7u"]
 [ext_resource type="Texture2D" uid="uid://frupsegmunjf" path="res://Assets/Sprites/Documents/Pass_cover.png" id="7_xwjbm"]
+[ext_resource type="Texture2D" uid="uid://b1kuba1p7jxmx" path="res://Assets/Sprites/Documents/passcover_on_table.png" id="11_cfeic"]
 
 [node name="Gameplay" type="Node2D" unique_id=288264400]
 script = ExtResource("1_r5ka5")
@@ -55,11 +56,14 @@ position = Vector2(1384, 484)
 texture = ExtResource("4_ovofm")
 
 [node name="TEST" type="Sprite2D" parent="." unique_id=1633082634]
-visible = false
 position = Vector2(629, 567)
 texture = ExtResource("6_u8j7u")
 
 [node name="TEST2" type="Sprite2D" parent="." unique_id=2018236057]
-visible = false
-position = Vector2(207, 739)
+position = Vector2(354, 752)
 texture = ExtResource("7_xwjbm")
+
+[node name="PassCoverTable" type="Sprite2D" parent="." unique_id=1272109166]
+position = Vector2(228, 739)
+scale = Vector2(0.49056605, 0.51376146)
+texture = ExtResource("11_cfeic")
