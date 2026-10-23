@@ -4,6 +4,8 @@
   "passenger_name": "Arthur Pendelton",
   "train_id": "GATE13-EXPRESS-01",
   "travel_date": "2134-10-19",
+  "class": "First",
+  "seat": "A-12",
   "is_valid": "true",
   "error_note": ""
 }

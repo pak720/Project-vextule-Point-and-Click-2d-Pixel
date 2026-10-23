@@ -2,13 +2,29 @@
 
 [ext_resource type="Script" uid="uid://b1g4xut3gsl3s" path="res://Scripts/Core/GameManager.cs" id="1_r5ka5"]
 [ext_resource type="Texture2D" uid="uid://coh7fu3x5h4j5" path="res://Assets/Sprites/UI/table1.png" id="2_tdndw"]
+[ext_resource type="Texture2D" uid="uid://kcy7ja7nuvec" path="res://Assets/Sprites/UI/GuardRail.png" id="2_uotjs"]
+[ext_resource type="Texture2D" uid="uid://vl431w2850ei" path="res://Assets/Sprites/Characters/arthur_pendelton.png" id="3_rhmiw"]
 [ext_resource type="PackedScene" uid="uid://dp71h8jh5gfla" path="res://Scenes/Components/StampStation.tscn" id="3_tdndw"]
 [ext_resource type="Texture2D" uid="uid://bfbhbtf7676h4" path="res://Assets/Sprites/UI/Tray_stuff.png" id="4_ovofm"]
+[ext_resource type="Script" uid="uid://c3qfdcmf0v47h" path="res://Scripts/Entities/NPCBooth.cs" id="4_vu60g"]
 [ext_resource type="PackedScene" uid="uid://cxy7c6qjkc08y" path="res://Scenes/Components/Document.tscn" id="5_mofsa"]
 [ext_resource type="Texture2D" uid="uid://c2jwv4m71veh6" path="res://Assets/Sprites/Documents/Train_ticket.png" id="6_u8j7u"]
+[ext_resource type="Texture2D" uid="uid://frupsegmunjf" path="res://Assets/Sprites/Documents/Pass_cover.png" id="7_xwjbm"]
 
 [node name="Gameplay" type="Node2D" unique_id=288264400]
 script = ExtResource("1_r5ka5")
+
+[node name="GuardRail" type="Sprite2D" parent="." unique_id=2019609414]
+position = Vector2(224, 515)
+texture = ExtResource("2_uotjs")
+
+[node name="TEST3" type="Sprite2D" parent="." unique_id=1994870252]
+position = Vector2(-300, 469)
+scale = Vector2(0.2852615, 0.2724761)
+texture = ExtResource("3_rhmiw")
+script = ExtResource("4_vu60g")
+_startPosition = Vector2(-300, 469)
+_targetPosition = Vector2(218, 469)
 
 [node name="DeskBackground" type="Sprite2D" parent="." unique_id=12176850]
 texture_filter = 1
@@ -26,6 +42,7 @@ offset_bottom = 40.0
 [node name="DocumentDeskArea" type="Node2D" parent="." unique_id=1938667005]
 
 [node name="Document2D" parent="DocumentDeskArea" unique_id=1044973207 instance=ExtResource("5_mofsa")]
+visible = false
 texture_filter = 1
 position = Vector2(918, 625)
 
@@ -38,5 +55,11 @@ position = Vector2(1384, 484)
 texture = ExtResource("4_ovofm")
 
 [node name="TEST" type="Sprite2D" parent="." unique_id=1633082634]
+visible = false
 position = Vector2(629, 567)
 texture = ExtResource("6_u8j7u")
+
+[node name="TEST2" type="Sprite2D" parent="." unique_id=2018236057]
+visible = false
+position = Vector2(207, 739)
+texture = ExtResource("7_xwjbm")
