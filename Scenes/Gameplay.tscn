@@ -12,8 +12,14 @@
 [ext_resource type="Texture2D" uid="uid://frupsegmunjf" path="res://Assets/Sprites/Documents/Pass_cover.png" id="7_xwjbm"]
 [ext_resource type="Texture2D" uid="uid://b1kuba1p7jxmx" path="res://Assets/Sprites/Documents/passcover_on_table.png" id="11_cfeic"]
 
-[node name="Gameplay" type="Node2D" unique_id=288264400]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xpcuk"]
+size = Vector2(377, 67)
+
+[node name="Gameplay" type="Node2D" unique_id=288264400 node_paths=PackedStringArray("_npcVisual", "_passportDocument", "_npcBoothController")]
 script = ExtResource("1_r5ka5")
+_npcVisual = NodePath("TEST3")
+_passportDocument = NodePath("DocumentDeskArea/Document2D")
+_npcBoothController = NodePath("TEST3")
 
 [node name="GuardRail" type="Sprite2D" parent="." unique_id=2019609414]
 position = Vector2(224, 515)
@@ -26,6 +32,7 @@ texture = ExtResource("3_rhmiw")
 script = ExtResource("4_vu60g")
 _startPosition = Vector2(-300, 469)
 _targetPosition = Vector2(218, 469)
+_boothTableDropPosition = Vector2(228, 739)
 
 [node name="DeskBackground" type="Sprite2D" parent="." unique_id=12176850]
 texture_filter = 1
@@ -42,10 +49,11 @@ offset_bottom = 40.0
 
 [node name="DocumentDeskArea" type="Node2D" parent="." unique_id=1938667005]
 
-[node name="Document2D" parent="DocumentDeskArea" unique_id=1044973207 instance=ExtResource("5_mofsa")]
+[node name="Document2D" parent="DocumentDeskArea" unique_id=1044973207 node_paths=PackedStringArray("_boothTableArea") instance=ExtResource("5_mofsa")]
 visible = false
 texture_filter = 1
 position = Vector2(918, 625)
+_boothTableArea = NodePath("../../BoothTableArea")
 
 [node name="StampStation" parent="." unique_id=1011615191 instance=ExtResource("3_tdndw")]
 position = Vector2(1651, 487)
@@ -56,14 +64,24 @@ position = Vector2(1384, 484)
 texture = ExtResource("4_ovofm")
 
 [node name="TEST" type="Sprite2D" parent="." unique_id=1633082634]
+visible = false
 position = Vector2(629, 567)
 texture = ExtResource("6_u8j7u")
 
 [node name="TEST2" type="Sprite2D" parent="." unique_id=2018236057]
-position = Vector2(354, 752)
+visible = false
+position = Vector2(691, 549.25006)
+scale = Vector2(1.9400004, 1.9007933)
 texture = ExtResource("7_xwjbm")
 
 [node name="PassCoverTable" type="Sprite2D" parent="." unique_id=1272109166]
+visible = false
 position = Vector2(228, 739)
 scale = Vector2(0.49056605, 0.51376146)
 texture = ExtResource("11_cfeic")
+
+[node name="BoothTableArea" type="Area2D" parent="." unique_id=1244869073]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BoothTableArea" unique_id=107019805]
+position = Vector2(225.5, 762.5)
+shape = SubResource("RectangleShape2D_xpcuk")

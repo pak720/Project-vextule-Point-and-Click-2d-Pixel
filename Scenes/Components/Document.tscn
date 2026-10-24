@@ -2,12 +2,25 @@
 
 [ext_resource type="Script" uid="uid://c1wqp73jnw04v" path="res://Scripts/Entities/Document2D.cs" id="1_w12mi"]
 [ext_resource type="Texture2D" uid="uid://15u3xcxoge7q" path="res://Assets/Sprites/Documents/passport_new.png" id="2_w12mi"]
+[ext_resource type="Texture2D" uid="uid://b1kuba1p7jxmx" path="res://Assets/Sprites/Documents/passcover_on_table.png" id="3_oyl3f"]
+[ext_resource type="FontFile" uid="uid://dhmmyov6h0k3t" path="res://Assets/Fonts/Font2.ttf" id="4_rtu0d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7xm62"]
 size = Vector2(265, 317)
 
-[node name="Document2D" type="Area2D" unique_id=1044973207 groups=["passport"]]
+[node name="Document2D" type="Area2D" unique_id=1044973207 node_paths=PackedStringArray("_openSprite", "_coverSprite", "_avatarRect", "_idLabel", "_nameLabel", "_genderLabel", "_dobLabel", "_speciesLabel", "_expiryLabel", "_countryLabel") groups=["passport"]]
 script = ExtResource("1_w12mi")
+_openSprite = NodePath("PassportSprite")
+_coverSprite = NodePath("CoverSprite")
+_avatarRect = NodePath("AvatarRect")
+_idLabel = NodePath("FieldsContainer/IdLabel")
+_nameLabel = NodePath("FieldsContainer/NameLabel")
+_genderLabel = NodePath("FieldsContainer/GenderLabel")
+_dobLabel = NodePath("FieldsContainer/DobLabel")
+_speciesLabel = NodePath("FieldsContainer/SpeciesLabel")
+_expiryLabel = NodePath("FieldsContainer/ExpiryLabel")
+_countryLabel = NodePath("FieldsContainer/CountryLabel")
+_deskBoundaryX = 460.0
 
 [node name="PassportSprite" type="Sprite2D" parent="." unique_id=219446238 groups=["passport"]]
 scale = Vector2(0.98064524, 0.99444443)
@@ -16,3 +29,109 @@ texture = ExtResource("2_w12mi")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1253223365 groups=["passport"]]
 position = Vector2(2.5, -2.5)
 shape = SubResource("RectangleShape2D_7xm62")
+
+[node name="CoverSprite" type="Sprite2D" parent="." unique_id=819165604]
+position = Vector2(0, 9.536743e-07)
+scale = Vector2(0.53066033, 0.51376146)
+texture = ExtResource("3_oyl3f")
+
+[node name="AvatarRect" type="TextureRect" parent="." unique_id=1508646146]
+offset_left = -125.0
+offset_top = 15.0
+offset_right = -48.0
+offset_bottom = 134.0
+mouse_filter = 0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="FieldsContainer" type="Node2D" parent="." unique_id=2015357064]
+
+[node name="IdLabel" type="Label" parent="FieldsContainer" unique_id=1833045008]
+offset_left = 40.0
+offset_top = 24.0
+offset_right = 129.0
+offset_bottom = 42.0
+theme_override_colors/font_color = Color(0.16565639, 0.16565642, 0.16565639, 1)
+theme_override_colors/font_shadow_color = Color(0.47772512, 0.47772512, 0.47772512, 0.23500001)
+theme_override_fonts/font = ExtResource("4_rtu0d")
+theme_override_font_sizes/font_size = 14
+text = "SYL-7421-P"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NameLabel" type="Label" parent="FieldsContainer" unique_id=1538868137]
+offset_left = -15.0
+offset_top = 40.0
+offset_right = 137.0
+offset_bottom = 58.0
+theme_override_colors/font_color = Color(0.16565639, 0.16565642, 0.16565639, 1)
+theme_override_colors/font_shadow_color = Color(0.47772512, 0.47772512, 0.47772512, 0.23500001)
+theme_override_fonts/font = ExtResource("4_rtu0d")
+theme_override_font_sizes/font_size = 13
+text = "ARTHUR PENDELTON"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GenderLabel" type="Label" parent="FieldsContainer" unique_id=304711352]
+offset_left = 8.0
+offset_top = 53.0
+offset_right = 97.0
+offset_bottom = 71.0
+theme_override_colors/font_color = Color(0.16565639, 0.16565642, 0.16565639, 1)
+theme_override_colors/font_shadow_color = Color(0.47772512, 0.47772512, 0.47772512, 0.23500001)
+theme_override_fonts/font = ExtResource("4_rtu0d")
+theme_override_font_sizes/font_size = 14
+text = "M"
+vertical_alignment = 1
+
+[node name="DobLabel" type="Label" parent="FieldsContainer" unique_id=859930708]
+offset_left = 33.0
+offset_top = 68.0
+offset_right = 122.0
+offset_bottom = 86.0
+theme_override_colors/font_color = Color(0.16565639, 0.16565642, 0.16565639, 1)
+theme_override_colors/font_shadow_color = Color(0.47772512, 0.47772512, 0.47772512, 0.23500001)
+theme_override_fonts/font = ExtResource("4_rtu0d")
+theme_override_font_sizes/font_size = 14
+text = "2101-05-12"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SpeciesLabel" type="Label" parent="FieldsContainer" unique_id=2046289447]
+offset_left = 15.0
+offset_top = 82.0
+offset_right = 104.0
+offset_bottom = 100.0
+theme_override_colors/font_color = Color(0.16565639, 0.16565642, 0.16565639, 1)
+theme_override_colors/font_shadow_color = Color(0.47772512, 0.47772512, 0.47772512, 0.23500001)
+theme_override_fonts/font = ExtResource("4_rtu0d")
+theme_override_font_sizes/font_size = 14
+text = "HUMAN"
+vertical_alignment = 1
+
+[node name="ExpiryLabel" type="Label" parent="FieldsContainer" unique_id=422706382]
+offset_left = 39.0
+offset_top = 97.0
+offset_right = 128.0
+offset_bottom = 115.0
+theme_override_colors/font_color = Color(0.16565639, 0.16565642, 0.16565639, 1)
+theme_override_colors/font_shadow_color = Color(0.47772512, 0.47772512, 0.47772512, 0.23500001)
+theme_override_fonts/font = ExtResource("4_rtu0d")
+theme_override_font_sizes/font_size = 14
+text = "2139-08-20"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CountryLabel" type="Label" parent="FieldsContainer" unique_id=1483901721]
+texture_filter = 1
+offset_left = -123.0
+offset_top = 129.0
+offset_right = 125.0
+offset_bottom = 149.0
+theme_override_colors/font_color = Color(0.16565639, 0.16565642, 0.16565639, 1)
+theme_override_colors/font_shadow_color = Color(0.47772512, 0.47772512, 0.47772512, 0.23500001)
+theme_override_fonts/font = ExtResource("4_rtu0d")
+theme_override_font_sizes/font_size = 14
+text = "Kuseropia Repubationtopia"
+horizontal_alignment = 2
+vertical_alignment = 1

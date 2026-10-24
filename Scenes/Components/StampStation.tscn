@@ -107,6 +107,7 @@ shape = SubResource("RectangleShape2D_ntoot")
 
 [node name="StamperDenied" type="Area2D" parent="StampTray" unique_id=1149659315]
 script = ExtResource("3_2e7m6")
+_stampType = 1
 _inkTexture = ExtResource("6_uwgmb")
 _inkOffset = Vector2(0, 60)
 
@@ -120,6 +121,7 @@ shape = SubResource("RectangleShape2D_uuun1")
 
 [node name="StamperRecord" type="Area2D" parent="StampTray" unique_id=697373773]
 script = ExtResource("3_2e7m6")
+_stampType = 2
 _inkTexture = ExtResource("8_mjhm8")
 _inkOffset = Vector2(0, 60)
 
