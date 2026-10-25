@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://c3qfdcmf0v47h" path="res://Scripts/Entities/NPCBooth.cs" id="4_vu60g"]
 [ext_resource type="PackedScene" uid="uid://cxy7c6qjkc08y" path="res://Scenes/Components/Document.tscn" id="5_mofsa"]
 [ext_resource type="Texture2D" uid="uid://c2jwv4m71veh6" path="res://Assets/Sprites/Documents/Train_ticket.png" id="6_u8j7u"]
+[ext_resource type="PackedScene" uid="uid://cruww70m1k8kn" path="res://Scenes/Components/TrainTicket.tscn" id="7_w5l26"]
 [ext_resource type="Texture2D" uid="uid://frupsegmunjf" path="res://Assets/Sprites/Documents/Pass_cover.png" id="7_xwjbm"]
 [ext_resource type="Texture2D" uid="uid://b1kuba1p7jxmx" path="res://Assets/Sprites/Documents/passcover_on_table.png" id="11_cfeic"]
 
@@ -25,13 +26,15 @@ _npcBoothController = NodePath("TEST3")
 position = Vector2(224, 515)
 texture = ExtResource("2_uotjs")
 
-[node name="TEST3" type="Sprite2D" parent="." unique_id=1994870252]
+[node name="TEST3" type="Sprite2D" parent="." unique_id=1994870252 node_paths=PackedStringArray("_passportDocument", "_trainTicketDocument")]
 position = Vector2(-300, 469)
 scale = Vector2(0.2852615, 0.2724761)
 texture = ExtResource("3_rhmiw")
 script = ExtResource("4_vu60g")
 _startPosition = Vector2(-300, 469)
 _targetPosition = Vector2(218, 469)
+_passportDocument = NodePath("../DocumentDeskArea/Document2D")
+_trainTicketDocument = NodePath("../DocumentDeskArea/TrainTicket2D")
 _boothTableDropPosition = Vector2(228, 739)
 
 [node name="DeskBackground" type="Sprite2D" parent="." unique_id=12176850]
@@ -53,6 +56,12 @@ offset_bottom = 40.0
 visible = false
 texture_filter = 1
 position = Vector2(918, 625)
+_boothTableArea = NodePath("../../BoothTableArea")
+
+[node name="TrainTicket2D" parent="DocumentDeskArea" unique_id=1038739731 node_paths=PackedStringArray("_boothTableArea") instance=ExtResource("7_w5l26")]
+visible = false
+position = Vector2(717, 665)
+_deskBoundaryX = 460.0
 _boothTableArea = NodePath("../../BoothTableArea")
 
 [node name="StampStation" parent="." unique_id=1011615191 instance=ExtResource("3_tdndw")]

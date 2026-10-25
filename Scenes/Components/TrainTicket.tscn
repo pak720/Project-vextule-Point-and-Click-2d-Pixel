@@ -1,0 +1,101 @@
+[gd_scene format=3 uid="uid://cruww70m1k8kn"]
+
+[ext_resource type="Texture2D" uid="uid://c2jwv4m71veh6" path="res://Assets/Sprites/Documents/Train_ticket.png" id="1_bk32s"]
+[ext_resource type="Script" uid="uid://blce4inh4du5b" path="res://Scripts/Entities/TrainTicket2D.cs" id="1_ggt8a"]
+[ext_resource type="FontFile" uid="uid://dhmmyov6h0k3t" path="res://Assets/Fonts/Font2.ttf" id="2_ttmq8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s0x3j"]
+size = Vector2(251, 148)
+
+[node name="TrainTicket2D" type="Area2D" unique_id=1038739731 node_paths=PackedStringArray("_documentIdLabel", "_passengerNameLabel", "_travelDateLabel", "_trainIdLabel", "_classLabel", "_seatLabel")]
+script = ExtResource("1_ggt8a")
+_deskBoundaryX = 460.0
+_documentIdLabel = NodePath("TicketFields/DocumentIdLabel")
+_passengerNameLabel = NodePath("TicketFields/PassengerNameLabel")
+_travelDateLabel = NodePath("TicketFields/TravelDateLabel")
+_trainIdLabel = NodePath("TicketFields/TrainIdLabel")
+_classLabel = NodePath("TicketFields/ClassLabel")
+_seatLabel = NodePath("TicketFields/SeatLabel")
+
+[node name="TicketSprite" type="Sprite2D" parent="." unique_id=1935195365]
+texture = ExtResource("1_bk32s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=97188602]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_s0x3j")
+
+[node name="TicketFields" type="Node2D" parent="." unique_id=1256214078]
+
+[node name="DocumentIdLabel" type="Label" parent="TicketFields" unique_id=2076933762]
+offset_left = -19.0
+offset_top = -38.0
+offset_right = 88.0
+offset_bottom = -23.0
+theme_override_colors/font_color = Color(0.16565639, 0.16565642, 0.16565639, 1)
+theme_override_colors/font_shadow_color = Color(0.47772512, 0.47772512, 0.47772512, 0.23500001)
+theme_override_fonts/font = ExtResource("2_ttmq8")
+theme_override_font_sizes/font_size = 13
+text = "SYL-7421-P"
+vertical_alignment = 3
+
+[node name="ClassLabel" type="Label" parent="TicketFields" unique_id=1532017299]
+offset_left = 58.0
+offset_top = 33.0
+offset_right = 98.0
+offset_bottom = 48.0
+theme_override_colors/font_color = Color(0.16565639, 0.16565642, 0.16565639, 1)
+theme_override_colors/font_shadow_color = Color(0.47772512, 0.47772512, 0.47772512, 0.23500001)
+theme_override_fonts/font = ExtResource("2_ttmq8")
+theme_override_font_sizes/font_size = 13
+text = "First"
+vertical_alignment = 3
+
+[node name="SeatLabel" type="Label" parent="TicketFields" unique_id=2140624972]
+offset_left = 56.0
+offset_top = 48.0
+offset_right = 90.0
+offset_bottom = 66.0
+theme_override_colors/font_color = Color(0.16565639, 0.16565642, 0.16565639, 1)
+theme_override_colors/font_shadow_color = Color(0.47772512, 0.47772512, 0.47772512, 0.23500001)
+theme_override_fonts/font = ExtResource("2_ttmq8")
+theme_override_font_sizes/font_size = 13
+text = "A-12"
+vertical_alignment = 3
+
+[node name="PassengerNameLabel" type="Label" parent="TicketFields" unique_id=1296071062]
+offset_left = -109.0
+offset_top = 9.0
+offset_right = -20.0
+offset_bottom = 27.0
+theme_override_colors/font_color = Color(0.16565639, 0.16565642, 0.16565639, 1)
+theme_override_colors/font_shadow_color = Color(0.47772512, 0.47772512, 0.47772512, 0.23500001)
+theme_override_fonts/font = ExtResource("2_ttmq8")
+theme_override_font_sizes/font_size = 13
+text = "SYL-7421-P"
+vertical_alignment = 3
+
+[node name="TrainIdLabel" type="Label" parent="TicketFields" unique_id=57475759]
+offset_left = 15.0
+offset_top = 13.0
+offset_right = 91.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(0.16565639, 0.16565642, 0.16565639, 1)
+theme_override_colors/font_shadow_color = Color(0.47772512, 0.47772512, 0.47772512, 0.23500001)
+theme_override_fonts/font = ExtResource("2_ttmq8")
+theme_override_font_sizes/font_size = 13
+text = "SYL-7421-P"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TravelDateLabel" type="Label" parent="TicketFields" unique_id=720427452]
+offset_left = -108.0
+offset_top = 48.0
+offset_right = -19.0
+offset_bottom = 66.0
+theme_override_colors/font_color = Color(0.16565639, 0.16565642, 0.16565639, 1)
+theme_override_colors/font_shadow_color = Color(0.47772512, 0.47772512, 0.47772512, 0.23500001)
+theme_override_fonts/font = ExtResource("2_ttmq8")
+theme_override_font_sizes/font_size = 14
+text = "SYL-7421-P"
+horizontal_alignment = 1
+vertical_alignment = 1

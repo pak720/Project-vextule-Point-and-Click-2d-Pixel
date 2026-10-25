@@ -23,6 +23,9 @@ public class PassportJsonData
 
 public partial class Document2D : Area2D
 {
+    // Biến tĩnh dùng chung trên toàn game: Chỉ cho phép kéo duy nhất 1 giấy tờ tại một thời điểm
+    public static Area2D CurrentDraggedDocument { get; set; } = null;
+    
     [ExportGroup("Cấu hình Hình ảnh (Gập / Mở)")]
     [Export] private Sprite2D _openSprite;   // Node PassportSprite (Trang mở chi tiết)
     [Export] private Sprite2D _coverSprite;  // Node CoverSprite (Bìa gập nhỏ trên quầy)
@@ -153,14 +156,30 @@ public partial class Document2D : Area2D
         {
             if (mouseEvent.Pressed)
             {
+                // Kiểm tra xung đột: Nếu đang kéo một giấy tờ khác thì chặn lại
+                if (CurrentDraggedDocument != null && CurrentDraggedDocument != this)
+                    return;
+                    
                 _dropTween?.Kill();
                 _isDragging = true;
+                CurrentDraggedDocument = this;
                 _dragOffset = GlobalPosition - GetGlobalMousePosition();
+                
+                // Đưa hộ chiếu lên trên cùng để không bị che khuất
                 GetParent()?.MoveChild(this, GetParent().GetChildCount() - 1);
+                
+                // Chặn sự kiện click chuột không truyền xuyên thấu xuống các đối tượng nằm dưới
+                GetViewport().SetInputAsHandled();
             }
             else if (_isDragging)
             {
                 _isDragging = false;
+                
+                if (CurrentDraggedDocument == this)
+                {
+                    CurrentDraggedDocument = null;
+                }
+                
                 if (!_isOpen)
                 {
                     DropToBoothTableAreaUnderMouse();
