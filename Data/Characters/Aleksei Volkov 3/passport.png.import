@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdrem7cbqwtp"
-path="res://.godot/imported/asylum_paper.png-5cb3395a0d97ff6b78c8d59d20a3ee12.ctex"
+uid="uid://c1ua24hdmujs"
+path="res://.godot/imported/passport.png-68041b98030a85386990d32619488c36.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Data/Characters/Aleksei Volkov 3 (Valid)/asylum_paper.png"
-dest_files=["res://.godot/imported/asylum_paper.png-5cb3395a0d97ff6b78c8d59d20a3ee12.ctex"]
+source_file="res://Data/Characters/Aleksei Volkov 3/passport.png"
+dest_files=["res://.godot/imported/passport.png-68041b98030a85386990d32619488c36.ctex"]
 
 [params]
 

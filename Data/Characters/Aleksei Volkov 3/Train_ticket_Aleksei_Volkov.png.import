@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cyux4wl7eutu"
-path="res://.godot/imported/Train_ticket_Aleksei_Volkov.png-f946739816492da95c79f00c4a08dfe9.ctex"
+path="res://.godot/imported/Train_ticket_Aleksei_Volkov.png-456f68fc489b8b6a92ccc97e693623e2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Data/Characters/Aleksei Volkov 3 (Valid)/Train_ticket_Aleksei_Volkov.png"
-dest_files=["res://.godot/imported/Train_ticket_Aleksei_Volkov.png-f946739816492da95c79f00c4a08dfe9.ctex"]
+source_file="res://Data/Characters/Aleksei Volkov 3/Train_ticket_Aleksei_Volkov.png"
+dest_files=["res://.godot/imported/Train_ticket_Aleksei_Volkov.png-456f68fc489b8b6a92ccc97e693623e2.ctex"]
 
 [params]
 

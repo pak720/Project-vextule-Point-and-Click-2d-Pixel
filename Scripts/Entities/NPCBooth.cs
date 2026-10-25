@@ -2,198 +2,219 @@ namespace Game.Entities;
 
 using Godot;
 using System;
+using Game.Core;
 
 public partial class NPCBooth : Sprite2D
 {
-    [ExportGroup("Cấu hình tọa độ di chuyển (Từ Editor)")]
-    // Vị trí xuất phát ẩn dưới quầy
+    [ExportGroup("Cấu hình tọa độ di chuyển")]
     [Export] private Vector2 _startPosition = new Vector2(-300.0f, 750.0f);
-    // Vị trí đứng chuẩn ở quầy làm việc (khớp với Transform của TEST3)
     [Export] private Vector2 _targetPosition = new Vector2(-300.0f, 469.0f);
-    // Thời gian di chuyển đi vào / đi ra (giây)
-    [Export] private float _walkDuration = 2.0f;
+    [Export] private float _walkDuration = 1.8f;
+
+    [ExportGroup("Khoảng cách rời quầy")]
+    [Export] private float _exitDistance = 1200.0f;
+    [Export] private float _exitDuration = 1.8f;
 
     [ExportGroup("Cấu hình hiệu ứng nhấp nhô (Bobbing)")]
-    // Thời gian của 1 nhịp nhún chân
     [Export] private float _stepDuration = 0.2f;
-    // Độ nảy lên cao của đầu nhân vật (pixels)
     [Export] private float _bobHeight = 6.0f;
-    // Tỷ lệ co nén thân mình khi dậm chân (Scale.Y)
     [Export] private float _squishMultiplier = 0.95f;
 
     [ExportGroup("Tài liệu bàn giao")]
     [Export] private Document2D _passportDocument;
     [Export] private TrainTicket2D _trainTicketDocument;
-    // Tọa độ mặt bàn gỗ bên trái nơi thả giấy tờ xuống
     [Export] private Vector2 _boothTableDropPosition = new Vector2(520.0f, 620.0f);
 
     private bool _isWalking = false;
     private Vector2 _originalScale;
+    private Tween _activeMoveTween;
+    private Tween _activeBobbingTween;
 
     public override void _Ready()
     {
-        // Lưu lại Scale ban đầu (ví dụ: 0.285, 0.272) để bảo toàn kích thước pixel art
         _originalScale = Scale;
         Position = _startPosition;
+        FlipH = false;
 
-        // Tự động tìm kiếm tham chiếu nếu chưa kéo thả trên Inspector
         if (_passportDocument == null)
-        {
             _passportDocument = GetNodeOrNull<Document2D>("../DocumentDeskArea/Document2D");
-        }
 
         if (_trainTicketDocument == null)
-        {
             _trainTicketDocument = GetNodeOrNull<TrainTicket2D>("../DocumentDeskArea/TrainTicket2D");
-        }
 
-        // Bắt đầu chuỗi bước vào quầy khi màn chơi nạp
         StartWalkingWithBobbing();
     }
 
-    /// <summary>
-    /// Kích hoạt hoạt ảnh nhân vật đi vào quầy có hiệu ứng nhấp nhô bobbing
-    /// </summary>
     public void StartWalkingWithBobbing()
     {
-        if (_isWalking) return;
-
+        KillAllTweens();
         _isWalking = true;
         Position = _startPosition;
         Scale = _originalScale;
+        FlipH = false;
 
-        GD.Print($"[NPCBooth]: Nhân vật '{Name}' bắt đầu bước vào quầy...");
+        GD.Print($"[NPCBooth]: '{Name}' bước vào quầy...");
 
-        // 1. TWEEN TỊNH TIẾN: Di chuyển từ vị trí xuất phát lên quầy
-        Tween moveTween = CreateTween();
-        moveTween.SetParallel(true);
-
-        moveTween.TweenProperty(this, "position:x", _targetPosition.X, _walkDuration);
-        moveTween.TweenProperty(this, "position:y", _targetPosition.Y, _walkDuration)
+        _activeMoveTween = CreateTween();
+        _activeMoveTween.SetParallel(true);
+        _activeMoveTween.TweenProperty(this, "position:x", _targetPosition.X, _walkDuration);
+        _activeMoveTween.TweenProperty(this, "position:y", _targetPosition.Y, _walkDuration)
             .SetTrans(Tween.TransitionType.Quad)
             .SetEase(Tween.EaseType.Out);
 
-        // 2. TWEEN NHẤP NHÔ (BOBBING): Tạo nhịp bước chân lặp lại song song
-        Tween bobbingTween = CreateTween();
+        _activeBobbingTween = CreateTween();
         int totalSteps = Math.Max(1, (int)(_walkDuration / (_stepDuration * 2)));
-        bobbingTween.SetLoops(totalSteps);
+        _activeBobbingTween.SetLoops(totalSteps);
+        _activeBobbingTween.TweenProperty(this, "position:y", -_bobHeight, _stepDuration).AsRelative().SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.Out);
+        _activeBobbingTween.Parallel().TweenProperty(this, "scale:y", _originalScale.Y * _squishMultiplier, _stepDuration);
+        _activeBobbingTween.TweenProperty(this, "position:y", _bobHeight, _stepDuration).AsRelative().SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.In);
+        _activeBobbingTween.Parallel().TweenProperty(this, "scale:y", _originalScale.Y, _stepDuration);
 
-        // Nhịp 1: Nảy người lên
-        bobbingTween.TweenProperty(this, "position:y", -_bobHeight, _stepDuration)
-            .AsRelative()
-            .SetTrans(Tween.TransitionType.Sine)
-            .SetEase(Tween.EaseType.Out);
-
-        // Nhịp 2: Dậm chân nén nhẹ trục Y theo tỉ lệ Scale gốc
-        bobbingTween.Parallel().TweenProperty(this, "scale:y", _originalScale.Y * _squishMultiplier, _stepDuration);
-
-        // Nhịp 3: Trở về chiều cao bình thường
-        bobbingTween.TweenProperty(this, "position:y", _bobHeight, _stepDuration)
-            .AsRelative()
-            .SetTrans(Tween.TransitionType.Sine)
-            .SetEase(Tween.EaseType.In);
-
-        bobbingTween.Parallel().TweenProperty(this, "scale:y", _originalScale.Y, _stepDuration);
-
-        // 3. KHI ĐẾN NƠI: Dừng bobbing, cố định vị trí và tiến hành thả giấy tờ
-        moveTween.Finished += () =>
+        _activeMoveTween.Finished += () =>
         {
-            bobbingTween.Kill();
-
+            KillAllTweens();
             Position = _targetPosition;
             Scale = _originalScale;
             _isWalking = false;
-
-            GD.Print($"[NPCBooth]: Nhân vật '{Name}' đã đến quầy. Tiến hành thả giấy tờ!");
             OnNPCArrivedAtBooth();
         };
     }
 
-    /// <summary>
-    /// Kích hoạt sau khi nhân vật đã đứng ngay ngắn ở quầy làm việc
-    /// </summary>
     private void OnNPCArrivedAtBooth()
     {
-        // 1. Thả hộ chiếu ở dạng bìa gập xuống bàn gỗ quầy
         if (_passportDocument != null)
         {
             Vector2 passStartPos = new Vector2(_boothTableDropPosition.X - 80.0f, _boothTableDropPosition.Y - 60.0f);
             _passportDocument.SpawnAsCoverOnBooth(passStartPos, _boothTableDropPosition);
-            GD.Print("[NPCBooth]: Đã thả bìa hộ chiếu xuống bàn quầy bên trái!");
-        }
-        else
-        {
-            GD.PrintErr("[NPCBooth]: Chưa gán Node Document2D!");
         }
 
-        // 2. Thả vé tàu ở bản thu nhỏ (small thumbnail) xuống cạnh hộ chiếu
         if (_trainTicketDocument != null)
         {
-            Vector2 ticketDropPos = _boothTableDropPosition + new Vector2(50.0f, 15.0f); // Lệch nhẹ để không đè khít lên hộ chiếu
+            Vector2 ticketDropPos = _boothTableDropPosition + new Vector2(50.0f, 15.0f);
             Vector2 ticketStartPos = new Vector2(ticketDropPos.X - 80.0f, ticketDropPos.Y - 60.0f);
             _trainTicketDocument.SpawnAsSmallOnBooth(ticketStartPos, ticketDropPos);
-            GD.Print("[NPCBooth]: Đã thả vé tàu thu nhỏ xuống bàn quầy bên trái!");
         }
     }
 
     /// <summary>
-    /// Kích hoạt khi người chơi đã đóng dấu xong và thả trả lại giấy tờ về bàn quầy bên trái
+    /// Thu hồi tài liệu trên bàn rồi kích hoạt rời quầy theo phán quyết
+    /// </summary>
+    public void TakeDocumentsAndExit(bool isApproved)
+    {
+        // Tự động kiểm tra chéo với GameManager nếu bị truyền nhầm false
+        if (GameManager.Instance?.PlayerStampDecision.HasValue == true)
+        {
+            isApproved = GameManager.Instance.PlayerStampDecision.Value;
+        }
+
+        KillAllTweens();
+
+        Vector2 handoverTarget = new Vector2(Position.X, Position.Y + 80.0f);
+        Tween docTween = CreateTween();
+        docTween.SetParallel(true);
+
+        if (_passportDocument != null && _passportDocument.Visible)
+        {
+            docTween.TweenProperty(_passportDocument, "global_position", handoverTarget, 0.35f);
+            docTween.TweenProperty(_passportDocument, "scale", Vector2.Zero, 0.35f);
+        }
+
+        if (_trainTicketDocument != null && _trainTicketDocument.Visible)
+        {
+            docTween.TweenProperty(_trainTicketDocument, "global_position", handoverTarget, 0.35f);
+            docTween.TweenProperty(_trainTicketDocument, "scale", Vector2.Zero, 0.35f);
+        }
+
+        bool finalApproved = isApproved;
+        docTween.Finished += () =>
+        {
+            if (_passportDocument != null)
+            {
+                _passportDocument.Visible = false;
+                _passportDocument.ClearInkMarks();
+            }
+
+            if (_trainTicketDocument != null)
+            {
+                _trainTicketDocument.Visible = false;
+            }
+
+            ExitBooth(finalApproved);
+        };
+    }
+
+    /// <summary>
+    /// NPC đi sang phải nếu Approve (+), đi sang trái nếu Denied (-)
+    /// </summary>
+    public void ExitBooth(bool isApproved)
+    {
+        // Đảm bảo lấy phán quyết chuẩn xác từ GameManager
+        if (GameManager.Instance?.PlayerStampDecision.HasValue == true)
+        {
+            isApproved = GameManager.Instance.PlayerStampDecision.Value;
+        }
+
+        KillAllTweens();
+        _isWalking = true;
+
+        // Approve (+1): Đi qua PHẢI | Denied (-1): Đi qua TRÁI
+        float direction = isApproved ? 1.0f : -1.0f;
+        FlipH = !isApproved; // Lật mặt nhìn sang trái khi Denied
+
+        float targetExitX = Position.X + (direction * _exitDistance);
+
+        GD.Print($"=================================================");
+        GD.Print($"[NPC EXIT]: isApproved = {isApproved}");
+        GD.Print($"[NPC EXIT]: Hướng đi = {(isApproved ? "SANG PHẢI (APPROVE)" : "SANG TRÁI (DENIED)")}");
+        GD.Print($"[NPC EXIT]: Tọa độ từ {Position.X} -> {targetExitX}");
+        GD.Print($"=================================================");
+
+        _activeMoveTween = CreateTween();
+        _activeMoveTween.SetParallel(true);
+        _activeMoveTween.TweenProperty(this, "position:x", targetExitX, _exitDuration)
+            .SetTrans(Tween.TransitionType.Quad)
+            .SetEase(Tween.EaseType.In);
+
+        _activeBobbingTween = CreateTween();
+        int totalSteps = Math.Max(1, (int)(_exitDuration / (_stepDuration * 2)));
+        _activeBobbingTween.SetLoops(totalSteps);
+        _activeBobbingTween.TweenProperty(this, "position:y", -_bobHeight, _stepDuration).AsRelative().SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.Out);
+        _activeBobbingTween.Parallel().TweenProperty(this, "scale:y", _originalScale.Y * _squishMultiplier, _stepDuration);
+        _activeBobbingTween.TweenProperty(this, "position:y", _bobHeight, _stepDuration).AsRelative().SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.In);
+        _activeBobbingTween.Parallel().TweenProperty(this, "scale:y", _originalScale.Y, _stepDuration);
+
+        _activeMoveTween.Finished += () =>
+        {
+            KillAllTweens();
+            Scale = _originalScale;
+            _isWalking = false;
+            FlipH = false;
+            Position = _startPosition;
+            GD.Print($"[NPCBooth]: NPC đã rời khỏi màn hình hoàn tất.");
+        };
+    }
+
+    /// <summary>
+    /// Hàm tương thích: Tự động lấy PlayerStampDecision từ GameManager thay vì mặc định false
     /// </summary>
     public void WalkAwayAndFinishTurn()
     {
-        if (_isWalking) return;
-        _isWalking = true;
+        bool decision = GameManager.Instance?.PlayerStampDecision ?? false;
+        TakeDocumentsAndExit(decision);
+    }
 
-        // 1. Thu hồi và ẩn các giấy tờ (NPC nhận lại đồ)
-        if (_passportDocument != null)
+    private void KillAllTweens()
+    {
+        if (_activeMoveTween != null && _activeMoveTween.IsValid())
         {
-            _passportDocument.Visible = false;
-            _passportDocument.ClearInkMarks(); // Xóa sạch vết mực cũ để chuẩn bị cho lượt tiếp theo
+            _activeMoveTween.Kill();
+            _activeMoveTween = null;
         }
 
-        if (_trainTicketDocument != null)
+        if (_activeBobbingTween != null && _activeBobbingTween.IsValid())
         {
-            _trainTicketDocument.Visible = false;
+            _activeBobbingTween.Kill();
+            _activeBobbingTween = null;
         }
-
-        GD.Print($"[NPCBooth]: Nhân vật '{Name}' đã nhận lại giấy tờ và bắt đầu rời khỏi quầy...");
-
-        // 2. Hoạt ảnh đi ngược về vị trí ẩn ban đầu kèm nhấp nhô
-        Tween exitTween = CreateTween();
-        exitTween.SetParallel(true);
-
-        exitTween.TweenProperty(this, "position:x", _startPosition.X, _walkDuration);
-        exitTween.TweenProperty(this, "position:y", _startPosition.Y, _walkDuration)
-                 .SetTrans(Tween.TransitionType.Quad)
-                 .SetEase(Tween.EaseType.In);
-
-        // Hiệu ứng nhấp nhô bước chân khi đi ra
-        Tween exitBobbingTween = CreateTween();
-        int totalSteps = Math.Max(1, (int)(_walkDuration / (_stepDuration * 2)));
-        exitBobbingTween.SetLoops(totalSteps);
-
-        exitBobbingTween.TweenProperty(this, "position:y", -_bobHeight, _stepDuration)
-                        .AsRelative()
-                        .SetTrans(Tween.TransitionType.Sine)
-                        .SetEase(Tween.EaseType.Out);
-
-        exitBobbingTween.Parallel().TweenProperty(this, "scale:y", _originalScale.Y * _squishMultiplier, _stepDuration);
-
-        exitBobbingTween.TweenProperty(this, "position:y", _bobHeight, _stepDuration)
-                        .AsRelative()
-                        .SetTrans(Tween.TransitionType.Sine)
-                        .SetEase(Tween.EaseType.In);
-
-        exitBobbingTween.Parallel().TweenProperty(this, "scale:y", _originalScale.Y, _stepDuration);
-
-        exitTween.Finished += () =>
-        {
-            exitBobbingTween.Kill();
-            Position = _startPosition;
-            Scale = _originalScale;
-            _isWalking = false;
-
-            GD.Print($"[NPCBooth]: Nhân vật '{Name}' đã rời khỏi quầy hoàn tất! Lượt chơi kết thúc.");
-        };
     }
 }

@@ -22,9 +22,9 @@ public partial class GameManager : Node2D
     [Export] private Sprite2D _npcVisual;                 // Node TEST3 (hiển thị NPC đứng quầy)
     [Export] private Document2D _passportDocument;         // Node Document2D (Hộ chiếu trên bàn)
     [Export] private TrainTicket2D _trainTicketDocument;   // Node TrainTicket2D (Vé tàu trên bàn)
-    [Export] private NPCBooth _npcBoothController;         // Node điều khiển hoạt ảnh NPC bước vào quầy
+    [Export] private NPCBooth _npcBoothController;         // Node điều khiển NPC đi vào / rời quầy
     
-    // Lưu trữ dữ liệu JSON của NPC hiện tại
+    // Dữ liệu JSON của NPC hiện tại
     public PassportJsonData CurrentPassport { get; private set; }
     public TrainTicketJsonData CurrentTicket { get; private set; }
     public Dictionary<string, JsonElement> LoadedDocuments { get; private set; } = new();
@@ -33,7 +33,7 @@ public partial class GameManager : Node2D
     public bool IsCurrentNPCValid { get; private set; } = true;
     public List<string> DiscrepancyErrors { get; private set; } = new();
     
-    // Lưu trạng thái con dấu người chơi đã đóng lên hộ chiếu (null = chưa đóng dấu)
+    // Lưu trạng thái con dấu người chơi đã đóng lên hộ chiếu (null = chưa đóng dấu, true = Approved, false = Denied)
     public bool? PlayerStampDecision { get; private set; } = null;
     
     public override void _EnterTree()
@@ -43,7 +43,7 @@ public partial class GameManager : Node2D
     
     public override void _Ready()
     {
-        // 1. Tự động tìm kiếm các Node dự phòng nếu chưa kéo thả trên Inspector
+        // 1. Tự động tìm kiếm các Node nếu chưa kéo thả trên Inspector
         if (_npcVisual == null) 
             _npcVisual = GetNodeOrNull<Sprite2D>("TEST3");
         
@@ -56,7 +56,7 @@ public partial class GameManager : Node2D
         if (_trainTicketDocument == null)
             _trainTicketDocument = GetNodeOrNull<TrainTicket2D>("DocumentDeskArea/TrainTicket2D");
             
-        // 2. Import dữ liệu từ folder nhân vật
+        // 2. Import dữ liệu từ thư mục nhân vật
         ImportCharacterFolder(_characterFolderPath);
         
         // 3. Chạy thuật toán đối chiếu chéo thông tin giữa các giấy tờ
@@ -103,27 +103,22 @@ public partial class GameManager : Node2D
     {
         try
         {
-            // Sử dụng rõ tiền tố Godot.FileAccess để tránh xung đột với System.IO.FileAccess
             using var file = Godot.FileAccess.Open(fullPath, Godot.FileAccess.ModeFlags.Read);
             string jsonText = file.GetAsText();
             using JsonDocument doc = JsonDocument.Parse(jsonText);
             LoadedDocuments[fileName] = doc.RootElement.Clone();
             
-            // 1. Nếu là passport.json: Nạp vào Document2D
             if (fileName == "passport.json")
             {
                 CurrentPassport = JsonSerializer.Deserialize<PassportJsonData>(jsonText);
-                
                 if (_passportDocument != null)
                 {
                     _passportDocument.LoadPassportFromJson(fullPath);
                 }
             }
-            // 2. Nếu là train_ticket.json: Nạp vào TrainTicket2D
             else if (fileName == "train_ticket.json")
             {
                 CurrentTicket = JsonSerializer.Deserialize<TrainTicketJsonData>(jsonText);
-                
                 if (_trainTicketDocument != null)
                 {
                     _trainTicketDocument.LoadTicketFromJson(fullPath);
@@ -145,7 +140,6 @@ public partial class GameManager : Node2D
         DiscrepancyErrors.Clear();
         IsCurrentNPCValid = true;
         
-        // Kiểm tra 1: Có hộ chiếu hay không
         if (CurrentPassport == null)
         {
             AddDiscrepancy("Thiếu Hộ chiếu (Passport) bắt buộc.");
@@ -153,7 +147,6 @@ public partial class GameManager : Node2D
             return;
         }
         
-        // Kiểm tra 2: Hạn sử dụng của Hộ chiếu so với ngày hiện tại của màn chơi
         if (DateTime.TryParse(CurrentPassport.ExpiryDate, out DateTime expDate) &&
             DateTime.TryParse(_currentGameDate, out DateTime gameDate))
         {
@@ -163,7 +156,6 @@ public partial class GameManager : Node2D
             }
         }
         
-        // Kiểm tra 3: Đối chiếu chéo với Vé tàu hỏa (train_ticket.json)
         if (LoadedDocuments.TryGetValue("train_ticket.json", out JsonElement ticketRoot))
         {
             if (ticketRoot.TryGetProperty("passenger_name", out JsonElement ticketNameProp))
@@ -176,7 +168,6 @@ public partial class GameManager : Node2D
             }
         }
         
-        // Kiểm tra 4: Đối chiếu chéo với Đơn xin tị nạn (asylum_paper.json) nếu có
         if (LoadedDocuments.TryGetValue("asylum_paper.json", out JsonElement asylumRoot))
         {
             if (asylumRoot.TryGetProperty("applicant_name", out JsonElement asylumNameProp))
@@ -198,7 +189,6 @@ public partial class GameManager : Node2D
             }
         }
         
-        // Kiểm tra 5: Đối chiếu chéo với Thẻ ngoại giao (diplomat_auth.json) nếu có
         if (LoadedDocuments.TryGetValue("diplomat_auth.json", out JsonElement dipRoot))
         {
             if (dipRoot.TryGetProperty("diplomat_name", out JsonElement dipNameProp))
@@ -233,11 +223,11 @@ public partial class GameManager : Node2D
         GD.Print($"[KẾT QUẢ ĐỐI CHIẾU CHÉO - NPC: {CurrentPassport?.Name ?? "Unknown"}]");
         if (IsCurrentNPCValid)
         {
-            GD.Print("=> TRẠNG THÁI: HỢP LỆ 100% (Người chơi phải đóng dấu APPROVE)");
+            GD.Print("=> TRẠNG THÁI: HỢP LỆ 100% (Quyết định đúng: APPROVE)");
         }
         else
         {
-            GD.Print($"=> TRẠNG THÁI: KHÔNG HỢP LỆ - Phát hiện {DiscrepancyErrors.Count} lỗi (Người chơi phải đóng dấu DENIED):");
+            GD.Print($"=> TRẠNG THÁI: KHÔNG HỢP LỆ - Phát hiện {DiscrepancyErrors.Count} lỗi (Quyết định đúng: DENIED):");
             foreach (var err in DiscrepancyErrors)
             {
                 GD.Print($"   - [LỖI]: {err}");
@@ -247,21 +237,41 @@ public partial class GameManager : Node2D
     }
     
     /// <summary>
-    /// Ghi nhận con dấu khi người chơi dập lên Hộ chiếu
+    /// Bước 1: Ghi nhận con dấu khi dập lên Hộ chiếu (Approve = true, Denied = false).
     /// </summary>
     public void OnPassportStamped(bool isApprovedStamp)
     {
         PlayerStampDecision = isApprovedStamp;
         GD.Print($"[GameManager]: Đã đóng dấu {(isApprovedStamp ? "APPROVE" : "DENIED")} lên Hộ chiếu.");
+        GD.Print("[GameManager]: Giấy tờ vẫn còn trên bàn. Hãy trả lại giấy tờ cho NPC để kết thúc lượt kiểm tra!");
+    }
+    
+    /// <summary>
+    /// Bước 2: Kích hoạt khi trả giấy tờ cho NPC (kéo thả hoặc nhấn nút trả).
+    /// </summary>
+    public void ReturnDocumentsToNPC()
+    {
+        // Dự phòng: Nếu chưa ghi nhận PlayerStampDecision, kiểm tra xem Hộ chiếu đã có dấu hay chưa
+        bool isApproved = PlayerStampDecision ?? false;
+        GD.Print($"[GameManager]: Thực hiện ReturnDocumentsToNPC với PlayerStampDecision = {PlayerStampDecision}");
         
-        if (isApprovedStamp == IsCurrentNPCValid)
+        if (isApproved == IsCurrentNPCValid)
         {
             GD.Print("🎉 [PHÁN QUYẾT CHÍNH XÁC]: Bạn đã xử lý đúng quy định biên giới!");
         }
         else
         {
-            string reason = DiscrepancyErrors.Count > 0 ? string.Join(" | ", DiscrepancyErrors) : "Hồ sơ hoàn toàn hợp lệ nhưng lại từ chối.";
+            string reason = DiscrepancyErrors.Count > 0 ? string.Join(" | ", DiscrepancyErrors) : "Hồ sơ hợp lệ nhưng bị từ chối.";
             GD.PrintErr($"🚨 [VI PHẠM QUY ĐỊNH - CITATION]: Xử lý sai! Lý do: {reason}");
+        }
+        
+        if (_npcBoothController != null)
+        {
+            _npcBoothController.TakeDocumentsAndExit(isApproved);
+        }
+        else
+        {
+            GD.PrintErr("[GameManager]: Không tìm thấy tham chiếu _npcBoothController!");
         }
     }
 }

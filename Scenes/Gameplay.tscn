@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dp71h8jh5gfla" path="res://Scenes/Components/StampStation.tscn" id="3_tdndw"]
 [ext_resource type="Texture2D" uid="uid://bfbhbtf7676h4" path="res://Assets/Sprites/UI/Tray_stuff.png" id="4_ovofm"]
 [ext_resource type="Script" uid="uid://c3qfdcmf0v47h" path="res://Scripts/Entities/NPCBooth.cs" id="4_vu60g"]
+[ext_resource type="Texture2D" uid="uid://bk0dbyx0k0vg8" path="res://Assets/Sprites/Characters/aleksei_volkov.png" id="5_5klrq"]
 [ext_resource type="PackedScene" uid="uid://cxy7c6qjkc08y" path="res://Scenes/Components/Document.tscn" id="5_mofsa"]
 [ext_resource type="Texture2D" uid="uid://c2jwv4m71veh6" path="res://Assets/Sprites/Documents/Train_ticket.png" id="6_u8j7u"]
 [ext_resource type="PackedScene" uid="uid://cruww70m1k8kn" path="res://Scenes/Components/TrainTicket.tscn" id="7_w5l26"]
@@ -37,6 +38,11 @@ _targetPosition = Vector2(218, 469)
 _passportDocument = NodePath("../DocumentDeskArea/Document2D")
 _trainTicketDocument = NodePath("../DocumentDeskArea/TrainTicket2D")
 _boothTableDropPosition = Vector2(228, 739)
+
+[node name="aleksei_volkov" type="Sprite2D" parent="." unique_id=790251992]
+position = Vector2(229.00002, 486)
+scale = Vector2(0.28500414, 0.27201545)
+texture = ExtResource("5_5klrq")
 
 [node name="DeskBackground" type="Sprite2D" parent="." unique_id=12176850]
 texture_filter = 1
