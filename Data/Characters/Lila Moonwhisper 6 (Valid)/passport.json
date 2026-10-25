@@ -1,0 +1,13 @@
+{
+  "document_type": "passport",
+  "document_id": "BQF-9802-R",
+  "name": "Lila Moonwhisper",
+  "gender": "F",
+  "birth_date": "1997-04-27",
+  "species": "Human",
+  "issuing_country": "Kuseropia Repubationtopia",
+  "expiry_date": "2032-08-15",
+  "avatar_file": "res://Assets/Sprites/Characters/lila_moonwhisper_avatar.png",
+  "is_valid": "true",
+  "error_note": ""
+}

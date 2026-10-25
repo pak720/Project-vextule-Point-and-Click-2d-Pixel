@@ -1,0 +1,13 @@
+{
+  "document_type": "passport",
+  "document_id": "LDX-0268-J",
+  "name": "Elena Vasquez",
+  "gender": "F",
+  "birth_date": "1990-07-08",
+  "species": "elf",
+  "issuing_country": "Kusestan",
+  "expiry_date": "2032-08-15",
+  "avatar_file": "res://Assets/Sprites/Characters/elena_vasquez_avatar.png",
+  "is_valid": "true",
+  "error_note": ""
+}

@@ -1,0 +1,11 @@
+{
+  "document_type": "train_ticket",
+  "document_id": "BQF-9802-R",
+  "passenger_name": "Lila Moonwhisper",
+  "train_id": "EXPRESS-28",
+  "travel_date": "2026-10-21",
+  "class": "ECO",
+  "seat": "B-32",
+  "is_valid": "true",
+  "error_note": ""
+}

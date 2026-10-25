@@ -1,0 +1,13 @@
+{
+  "document_type": "passport",
+  "document_id": "KUS-8812-V",
+  "name": "Aleksei Volkov",
+  "gender": "M",
+  "birth_date": "2104-09-28",
+  "species": "human",
+  "issuing_country": "Kuseropia Repubationtopia",
+  "expiry_date": "2137-04-10",
+  "avatar_file": "res://Assets/Sprites/Characters/aleksei_volkov_avatar.png",
+  "is_valid": "true",
+  "error_note": ""
+}

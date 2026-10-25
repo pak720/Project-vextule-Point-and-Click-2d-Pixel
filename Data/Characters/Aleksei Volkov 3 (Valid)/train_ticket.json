@@ -1,0 +1,11 @@
+{
+  "document_type": "train_ticket",
+  "document_id": "KUS-8812-V",
+  "passenger_name": "Aleksei Volkov",
+  "train_id": "PLATFORM13-TRANS-04",
+  "travel_date": "2134-10-19",
+  "class": "ECO",
+  "seat": "B-13",
+  "is_valid": "true",
+  "error_note": ""
+}

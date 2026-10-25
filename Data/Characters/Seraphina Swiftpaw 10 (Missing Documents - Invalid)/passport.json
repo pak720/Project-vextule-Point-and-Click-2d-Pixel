@@ -1,0 +1,13 @@
+{
+  "document_type": "passport",
+  "document_id": "KUS-1084-S",
+  "name": "Seraphina Swiftpaw",
+  "gender": "F",
+  "birth_date": "2108-12-22",
+  "species": "beastman",
+  "issuing_country": "Kusestan",
+  "expiry_date": "2139-09-14",
+  "avatar_file": "res://Assets/Sprites/Characters/seraphina_swiftpaw_avatar.png",
+  "is_valid": "false",
+  "error_note": "Khai báo nhập cảnh tị nạn nhưng thiếu giấy chứng nhận tị nạn (asylum_paper.json)."
+}

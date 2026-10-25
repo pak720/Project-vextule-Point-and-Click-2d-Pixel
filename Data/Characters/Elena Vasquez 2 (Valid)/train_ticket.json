@@ -1,0 +1,11 @@
+{
+  "document_type": "train_ticket",
+  "document_id": "LDX-0268-J",
+  "passenger_name": "Elena Vasquez",
+  "train_id": "EXPRESS-25",
+  "travel_date": "2026-10-21",
+  "class": "ECO",
+  "seat": "B-15",
+  "is_valid": "true",
+  "error_note": ""
+}

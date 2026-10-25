@@ -1,0 +1,69 @@
+﻿{
+    "assets":  [
+                   {
+                       "path":  "Data/Characters/Aleksei Volkov 3 (Valid)/Train_ticket_Aleksei_Volkov.png",
+                       "mode":  "built-in imagegen",
+                       "prompt":  "Edit Arthur train ticket using Train_ticket.png form, preserve layout and pixel typography; DOCUMENT ID KUS-8812-V; PASSENGER NAME Aleksei Volkov; TRAIN ID PLATFORM13-TRANS-04; TRAVEL DATE 2134-10-19; CLASS ECO; SEAT B-13."
+                   },
+                   {
+                       "path":  "Data/Characters/Elena Vasquez 2 (Valid)/Train_ticket_Elena_Vasquez.png",
+                       "mode":  "built-in imagegen",
+                       "prompt":  "Use case: text-localization. Edit pixel art train ticket. Image 1 target completed Arthur ticket layout and typography; image 2 blank form. Preserve full cream ticket, borders, pixel train icon, headings, right barcode. Replace values only with DOCUMENT ID: LDX-0268-J; PASSENGER NAME: Elena Vasquez; TRAIN ID: EXPRESS-25; TRAVEL DATE: 2026-10-21; CLASS: ECO; SEAT: B-15. Keep values in corresponding positions from Arthur, use same black pixel font. No additional text."
+                   },
+                   {
+                       "path":  "Data/Characters/Lila Moonwhisper 6 (Valid)/Train_ticket_Lila_Moonwhisper.png",
+                       "mode":  "built-in imagegen",
+                       "prompt":  "Use case: text-localization. Edit pixel art train ticket. Image 1 target completed Arthur ticket layout and typography; image 2 blank form. Preserve full cream ticket, borders, pixel train icon, headings, right barcode. Replace values only with DOCUMENT ID: BQF-9802-R; PASSENGER NAME: Lila Moonwhisper; TRAIN ID: EXPRESS-28; TRAVEL DATE: 2026-10-21; CLASS: ECO; SEAT: B-32. Keep values in corresponding positions from Arthur, use same black pixel font. No additional text."
+                   },
+                   {
+                       "path":  "Data/Characters/Aleksei Volkov 3 (Valid)/asylum_paper.png",
+                       "mode":  "built-in imagegen",
+                       "prompt":  "Use case: text-localization. Edit political asylum game document. Image 1 existing filled target, image 2 blank style reference. Preserve grey paper, red outline, pixel art title emblem, pixel font, fingerprint graphic, bottom barcode, authorization. Follow Assets/Sprites/Documents/AsylumDoc.png layout. KEEP the DOCUMENT ID row immediately below the title separator, with its gold label cell and grey value cell. Keep FINGERPRINT ID label and fingerprint graphic, but leave its lower left cell blank; do not print any FP code. All data text exact: APPLICANT NAME: Aleksei Volkov; REASON FOR ASYLUM: Political Persecution; APPROVAL CODE: ALPHA-992-SEC; ISSUE DATE: 2134-10-01; EXPIRY DATE: 2135-04-01; AUTHORIZED BY: Officer B. Vance. Heading POLITICAL ASYLUM GRANT, subheading IMMIGRATION AND REFUGEE SECTOR. Flat isolated complete document, same aspect and borders, preserve all template rows and borders. DOCUMENT ID: KUS-8812-V."
+                   },
+                   {
+                       "path":  "Data/Characters/Elena Vasquez 2 (Valid)/asylum_paper.png",
+                       "mode":  "built-in imagegen",
+                       "prompt":  "Use case: text-localization. Edit political asylum game document. Image 1 existing filled target, image 2 blank style reference. Preserve grey paper, red outline, pixel art title emblem, pixel font, fingerprint graphic, bottom barcode, authorization. Follow Assets/Sprites/Documents/AsylumDoc.png layout. KEEP the DOCUMENT ID row immediately below the title separator, with its gold label cell and grey value cell. Keep FINGERPRINT ID label and fingerprint graphic, but leave its lower left cell blank; do not print any FP code. All data text exact: APPLICANT NAME: Elena Vasquez; REASON FOR ASYLUM: Religious Cleansing; APPROVAL CODE: SACRED-771-VEX; ISSUE DATE: 2026-10-10; EXPIRY DATE: 2027-03-15; AUTHORIZED BY: Officer B. Vance. Heading POLITICAL ASYLUM GRANT, subheading IMMIGRATION AND REFUGEE SECTOR. Flat isolated complete document, same aspect and borders, preserve all template rows and borders. DOCUMENT ID: LDX-0268-J."
+                   },
+                   {
+                       "path":  "Data/Characters/Aleksei Volkov 3 (Valid)/passport.png",
+                       "mode":  "built-in imagegen",
+                       "prompt":  "Use case: compositing. Edit pixel art passport game asset. Image 1 is target template/style (Arthur completed passport), image 2 blank form reference, image 3 character portrait to insert, preserve this person\u0027s identity and exact pixel art. Keep same full frontal passport dimensions/aspect, red outer border, cream paper, orange dashed EMPTY stamp box in upper half, black hinge, 6 black pixel font field rows and country below. Replace Arthur\u0027s portrait with tightly cropped image 3 INSIDE grey avatar rectangle at lower left. Remove source black margins and beige frame entirely; center the face on the portrait rectangle axis with equal margins on left/right, preserve head and shoulders, no stretching. Exact text: DOCUMENT ID: KUS-8812-V; NAME: Aleksei Volkov; GENDER: M; BIRTH DATE: 2104-09-28; SPECIES: human; EXPIRY DATE: 2137-04-10; country below separator Kuseropia Repubationtopia. Retain all template design. No extra text, no stamps."
+                   },
+                   {
+                       "path":  "Assets/Sprites/Characters/aleksei_volkov_avatar.png",
+                       "mode":  "built-in imagegen",
+                       "prompt":  "Use case: precise-object-edit. Edit/crop the provided pixel portrait game asset. Remove outer black margin AND pale beige rectangular frame completely. Output only the interior grey background and exactly the same person\u0027s existing pixel art face and shoulders; preserve all identity, hair, clothing, expression, original pixel edges and colors, no redraw, no new details. Center crop a 34:47 portrait aspect ratio to match passport avatar slot. Face/head central axis must be horizontally centered, equal grey margins to both sides of head/ears. Preserve entire hairstyle and shoulders. Flat cropped rectangular portrait, no border, no extra margins. Do not mirror features, symmetry means balanced crop."
+                   },
+                   {
+                       "path":  "Data/Characters/Elena Vasquez 2 (Valid)/passport.png",
+                       "mode":  "built-in imagegen",
+                       "prompt":  "Use case: compositing. Edit pixel art passport game asset. Image 1 is target template/style (Arthur completed passport), image 2 blank form reference, image 3 character portrait to insert, preserve this person\u0027s identity and exact pixel art. Keep same full frontal passport dimensions/aspect, red outer border, cream paper, orange dashed EMPTY stamp box in upper half, black hinge, 6 black pixel font field rows and country below. Replace Arthur\u0027s portrait with tightly cropped image 3 INSIDE grey avatar rectangle at lower left. Remove source black margins and beige frame entirely; center the face on the portrait rectangle axis with equal margins on left/right, preserve head and shoulders, no stretching. Exact text: DOCUMENT ID: LDX-0268-J; NAME: Elena Vasquez; GENDER: F; BIRTH DATE: 1990-07-08; SPECIES: elf; EXPIRY DATE: 2032-08-15; country below separator Kusestan. Retain all template design. No extra text, no stamps."
+                   },
+                   {
+                       "path":  "Assets/Sprites/Characters/elena_vasquez_avatar.png",
+                       "mode":  "built-in imagegen",
+                       "prompt":  "Use case: precise-object-edit. Edit/crop the provided pixel portrait game asset. Remove outer black margin AND pale beige rectangular frame completely. Output only the interior grey background and exactly the same person\u0027s existing pixel art face and shoulders; preserve all identity, hair, clothing, expression, original pixel edges and colors, no redraw, no new details. Center crop a 34:47 portrait aspect ratio to match passport avatar slot. Face/head central axis must be horizontally centered, equal grey margins to both sides of head/ears. Preserve entire hairstyle and shoulders. Flat cropped rectangular portrait, no border, no extra margins. Do not mirror features, symmetry means balanced crop."
+                   },
+                   {
+                       "path":  "Data/Characters/Lila Moonwhisper 6 (Valid)/passport.png",
+                       "mode":  "built-in imagegen",
+                       "prompt":  "Use case: compositing. Edit pixel art passport game asset. Image 1 is target template/style (Arthur completed passport), image 2 blank form reference, image 3 character portrait to insert, preserve this person\u0027s identity and exact pixel art. Keep same full frontal passport dimensions/aspect, red outer border, cream paper, orange dashed EMPTY stamp box in upper half, black hinge, 6 black pixel font field rows and country below. Replace Arthur\u0027s portrait with tightly cropped image 3 INSIDE grey avatar rectangle at lower left. Remove source black margins and beige frame entirely; center the face on the portrait rectangle axis with equal margins on left/right, preserve head and shoulders, no stretching. Exact text: DOCUMENT ID: BQF-9802-R; NAME: Lila Moonwhisper; GENDER: F; BIRTH DATE: 1997-04-27; SPECIES: Human; EXPIRY DATE: 2032-08-15; country below separator Kuseropia Repubationtopia. Retain all template design. No extra text, no stamps."
+                   },
+                   {
+                       "path":  "Assets/Sprites/Characters/lila_moonwhisper_avatar.png",
+                       "mode":  "built-in imagegen",
+                       "prompt":  "Use case: precise-object-edit. Edit/crop the provided pixel portrait game asset. Remove outer black margin AND pale beige rectangular frame completely. Output only the interior grey background and exactly the same person\u0027s existing pixel art face and shoulders; preserve all identity, hair, clothing, expression, original pixel edges and colors, no redraw, no new details. Center crop a 34:47 portrait aspect ratio to match passport avatar slot. Face/head central axis must be horizontally centered, equal grey margins to both sides of head/ears. Preserve entire hairstyle and shoulders. Flat cropped rectangular portrait, no border, no extra margins. Do not mirror features, symmetry means balanced crop."
+                   },
+                   {
+                       "path":  "Data/Characters/Seraphina Swiftpaw 10 (Missing Documents - Invalid)/passport.png",
+                       "mode":  "built-in imagegen",
+                       "prompt":  "Use case: compositing. Edit pixel art passport game asset. Image 1 is target template/style (Arthur completed passport), image 2 blank form reference, image 3 character portrait to insert, preserve this person\u0027s identity and exact pixel art. Keep same full frontal passport dimensions/aspect, red outer border, cream paper, orange dashed EMPTY stamp box in upper half, black hinge, 6 black pixel font field rows and country below. Replace Arthur\u0027s portrait with tightly cropped image 3 INSIDE grey avatar rectangle at lower left. Remove source black margins and beige frame entirely; center the face on the portrait rectangle axis with equal margins on left/right, preserve head and shoulders, no stretching. Exact text: DOCUMENT ID: KUS-1084-S; NAME: Seraphina Swiftpaw; GENDER: F; BIRTH DATE: 2108-12-22; SPECIES: beastman; EXPIRY DATE: 2139-09-14; country below separator Kusestan. Retain all template design. No extra text, no stamps."
+                   },
+                   {
+                       "path":  "Assets/Sprites/Characters/seraphina_swiftpaw_avatar.png",
+                       "mode":  "built-in imagegen",
+                       "prompt":  "Use case: precise-object-edit. Edit/crop the provided pixel portrait game asset. Remove outer black margin AND pale beige rectangular frame completely. Output only the interior grey background and exactly the same person\u0027s existing pixel art face and shoulders; preserve all identity, hair, clothing, expression, original pixel edges and colors, no redraw, no new details. Center crop a 34:47 portrait aspect ratio to match passport avatar slot. Face/head central axis must be horizontally centered, equal grey margins to both sides of head/ears. Preserve entire hairstyle and shoulders. Flat cropped rectangular portrait, no border, no extra margins. Do not mirror features, symmetry means balanced crop."
+                   }
+               ]
+}
