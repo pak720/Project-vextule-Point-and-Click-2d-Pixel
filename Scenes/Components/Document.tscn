@@ -36,13 +36,13 @@ scale = Vector2(0.53066033, 0.51376146)
 texture = ExtResource("3_oyl3f")
 
 [node name="AvatarRect" type="TextureRect" parent="." unique_id=1508646146]
-offset_left = -125.0
-offset_top = 15.0
-offset_right = -48.0
-offset_bottom = 134.0
+offset_left = -120.0
+offset_top = 28.0
+offset_right = -52.0
+offset_bottom = 122.0
 mouse_filter = 0
 expand_mode = 1
-stretch_mode = 5
+stretch_mode = 6
 
 [node name="FieldsContainer" type="Node2D" parent="." unique_id=2015357064]
 

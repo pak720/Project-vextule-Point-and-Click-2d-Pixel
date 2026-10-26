@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctoj66gmixhh"
-path="res://.godot/imported/Train_ticket_Elena_Vasquez.png-7398c19f10c49ab4a3721c3fa8c6ac6a.ctex"
+uid="uid://cgdnmystavtj"
+path="res://.godot/imported/asylum_paper.png-460e5ef40ab7b1f4843c30be483af482.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Data/Characters/Elena Vasquez 2 (Valid)/Train_ticket_Elena_Vasquez.png"
-dest_files=["res://.godot/imported/Train_ticket_Elena_Vasquez.png-7398c19f10c49ab4a3721c3fa8c6ac6a.ctex"]
+source_file="res://Data/Characters/Elena Vasquez 2/asylum_paper.png"
+dest_files=["res://.godot/imported/asylum_paper.png-460e5ef40ab7b1f4843c30be483af482.ctex"]
 
 [params]
 

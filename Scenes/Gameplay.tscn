@@ -10,18 +10,22 @@
 [ext_resource type="Texture2D" uid="uid://bk0dbyx0k0vg8" path="res://Assets/Sprites/Characters/aleksei_volkov.png" id="5_5klrq"]
 [ext_resource type="PackedScene" uid="uid://cxy7c6qjkc08y" path="res://Scenes/Components/Document.tscn" id="5_mofsa"]
 [ext_resource type="Texture2D" uid="uid://c2jwv4m71veh6" path="res://Assets/Sprites/Documents/Train_ticket.png" id="6_u8j7u"]
+[ext_resource type="PackedScene" uid="uid://bva41j5ctrq2q" path="res://Scenes/Components/AsylumPaper.tscn" id="7_2aia5"]
 [ext_resource type="PackedScene" uid="uid://cruww70m1k8kn" path="res://Scenes/Components/TrainTicket.tscn" id="7_w5l26"]
 [ext_resource type="Texture2D" uid="uid://frupsegmunjf" path="res://Assets/Sprites/Documents/Pass_cover.png" id="7_xwjbm"]
 [ext_resource type="Texture2D" uid="uid://b1kuba1p7jxmx" path="res://Assets/Sprites/Documents/passcover_on_table.png" id="11_cfeic"]
 [ext_resource type="Texture2D" uid="uid://bxiq2v7todwr3" path="res://Assets/Sprites/Documents/AsylumDoc.png" id="13_7wr7o"]
+[ext_resource type="Texture2D" uid="uid://oihtl2ncy7d" path="res://Assets/Sprites/Characters/elena_vasquez.png" id="16_bk2no"]
+[ext_resource type="Texture2D" uid="uid://b0n0scgqsavf1" path="res://Assets/Sprites/Characters/lila_moonwhisper.png" id="17_qaqk3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xpcuk"]
 size = Vector2(377, 67)
 
-[node name="Gameplay" type="Node2D" unique_id=288264400 node_paths=PackedStringArray("_npcVisual", "_passportDocument", "_npcBoothController")]
+[node name="Gameplay" type="Node2D" unique_id=288264400 node_paths=PackedStringArray("_npcVisual", "_passportDocument", "_asylumPaperDocument", "_npcBoothController")]
 script = ExtResource("1_r5ka5")
 _npcVisual = NodePath("TEST3")
 _passportDocument = NodePath("DocumentDeskArea/Document2D")
+_asylumPaperDocument = NodePath("DocumentDeskArea/AsylumPaper2D")
 _npcBoothController = NodePath("TEST3")
 
 [node name="GuardRail" type="Sprite2D" parent="." unique_id=2019609414]
@@ -40,6 +44,7 @@ _trainTicketDocument = NodePath("../DocumentDeskArea/TrainTicket2D")
 _boothTableDropPosition = Vector2(228, 739)
 
 [node name="aleksei_volkov" type="Sprite2D" parent="." unique_id=790251992]
+visible = false
 position = Vector2(229.00002, 486)
 scale = Vector2(0.28500414, 0.27201545)
 texture = ExtResource("5_5klrq")
@@ -58,6 +63,10 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="DocumentDeskArea" type="Node2D" parent="." unique_id=1938667005]
+
+[node name="AsylumPaper2D" parent="DocumentDeskArea" unique_id=257627282 instance=ExtResource("7_2aia5")]
+visible = false
+position = Vector2(736, 625)
 
 [node name="Document2D" parent="DocumentDeskArea" unique_id=1044973207 node_paths=PackedStringArray("_boothTableArea") instance=ExtResource("5_mofsa")]
 visible = false
@@ -102,6 +111,19 @@ position = Vector2(225.5, 762.5)
 shape = SubResource("RectangleShape2D_xpcuk")
 
 [node name="AsylumDoc" type="Sprite2D" parent="." unique_id=1572189758]
+visible = false
 position = Vector2(691.8125, 630.5)
 scale = Vector2(0.5497881, 0.534264)
 texture = ExtResource("13_7wr7o")
+
+[node name="elena_vasquez" type="Sprite2D" parent="." unique_id=1978238243]
+visible = false
+position = Vector2(-300.5, 466.75)
+scale = Vector2(0.297005, 0.28143942)
+texture = ExtResource("16_bk2no")
+
+[node name="lila_moonwhisper" type="Sprite2D" parent="." unique_id=250285907]
+visible = false
+position = Vector2(-299.00003, 451)
+scale = Vector2(0.35046524, 0.33030856)
+texture = ExtResource("17_qaqk3")

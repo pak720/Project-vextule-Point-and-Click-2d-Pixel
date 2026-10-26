@@ -1,0 +1,127 @@
+[gd_scene format=3 uid="uid://bva41j5ctrq2q"]
+
+[ext_resource type="Script" uid="uid://d1foggmqdu2eh" path="res://Scripts/Entities/AsylumPaper2D.cs" id="1_ed2gm"]
+[ext_resource type="Texture2D" uid="uid://bxiq2v7todwr3" path="res://Assets/Sprites/Documents/AsylumDoc.png" id="1_xg4st"]
+[ext_resource type="FontFile" uid="uid://dhmmyov6h0k3t" path="res://Assets/Fonts/Font2.ttf" id="2_ed2gm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xg4st"]
+size = Vector2(324, 419)
+
+[node name="AsylumPaper2D" type="Area2D" unique_id=257627282 node_paths=PackedStringArray("_lblDocumentId", "_lblApplicantName", "_lblReason", "_lblApprovalCode", "_lblIssueDate", "_lblExpiryDate", "_lblFingerprintId")]
+script = ExtResource("1_ed2gm")
+_deskBoundaryX = 460.0
+_lblDocumentId = NodePath("FieldsContainer/LblDocumentId")
+_lblApplicantName = NodePath("FieldsContainer/LblApplicantName")
+_lblReason = NodePath("FieldsContainer/LblReason")
+_lblApprovalCode = NodePath("FieldsContainer/LblApprovalCode")
+_lblIssueDate = NodePath("FieldsContainer/LblIssueDate")
+_lblExpiryDate = NodePath("FieldsContainer/LblExpiryDate")
+_lblFingerprintId = NodePath("FieldsContainer/LblFingerprintId")
+
+[node name="PaperSprite" type="Sprite2D" parent="." unique_id=182794400]
+scale = Vector2(0.55, 0.534)
+texture = ExtResource("1_xg4st")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1712106657]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_xg4st")
+
+[node name="FieldsContainer" type="Control" parent="." unique_id=472813693]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LblDocumentId" type="Label" parent="FieldsContainer" unique_id=145597945]
+layout_mode = 0
+offset_left = 4.0
+offset_top = -105.0
+offset_right = 93.0
+offset_bottom = -87.0
+theme_override_colors/font_color = Color(0.16565639, 0.16565642, 0.16565639, 1)
+theme_override_colors/font_shadow_color = Color(0.47772512, 0.47772512, 0.47772512, 0.23500001)
+theme_override_fonts/font = ExtResource("2_ed2gm")
+theme_override_font_sizes/font_size = 14
+text = "SYL-7421-P"
+vertical_alignment = 1
+
+[node name="LblApplicantName" type="Label" parent="FieldsContainer" unique_id=422172233]
+layout_mode = 0
+offset_left = -127.0
+offset_top = -67.0
+offset_right = -38.0
+offset_bottom = -49.0
+theme_override_colors/font_color = Color(0.16565639, 0.16565642, 0.16565639, 1)
+theme_override_colors/font_shadow_color = Color(0.47772512, 0.47772512, 0.47772512, 0.23500001)
+theme_override_fonts/font = ExtResource("2_ed2gm")
+theme_override_font_sizes/font_size = 14
+text = "SYL-7421-P"
+vertical_alignment = 1
+
+[node name="LblReason" type="Label" parent="FieldsContainer" unique_id=954014289]
+layout_mode = 0
+offset_left = -127.0
+offset_top = -32.0
+offset_right = 34.0
+offset_bottom = -14.0
+theme_override_colors/font_color = Color(0.16565639, 0.16565642, 0.16565639, 1)
+theme_override_colors/font_shadow_color = Color(0.47772512, 0.47772512, 0.47772512, 0.23500001)
+theme_override_fonts/font = ExtResource("2_ed2gm")
+theme_override_font_sizes/font_size = 14
+text = "SYL-7421-P"
+vertical_alignment = 1
+
+[node name="LblApprovalCode" type="Label" parent="FieldsContainer" unique_id=470443316]
+layout_mode = 0
+offset_left = -127.0
+offset_top = 2.0
+offset_right = -38.0
+offset_bottom = 20.0
+theme_override_colors/font_color = Color(0.16565639, 0.16565642, 0.16565639, 1)
+theme_override_colors/font_shadow_color = Color(0.47772512, 0.47772512, 0.47772512, 0.23500001)
+theme_override_fonts/font = ExtResource("2_ed2gm")
+theme_override_font_sizes/font_size = 14
+text = "SYL-7421-P"
+vertical_alignment = 1
+
+[node name="LblIssueDate" type="Label" parent="FieldsContainer" unique_id=445616825]
+layout_mode = 0
+offset_left = -128.0
+offset_top = 36.0
+offset_right = -39.0
+offset_bottom = 54.0
+theme_override_colors/font_color = Color(0.16565639, 0.16565642, 0.16565639, 1)
+theme_override_colors/font_shadow_color = Color(0.47772512, 0.47772512, 0.47772512, 0.23500001)
+theme_override_fonts/font = ExtResource("2_ed2gm")
+theme_override_font_sizes/font_size = 14
+text = "SYL-7421-P"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LblExpiryDate" type="Label" parent="FieldsContainer" unique_id=1432217861]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 36.0
+offset_right = 93.0
+offset_bottom = 54.0
+theme_override_colors/font_color = Color(0.16565639, 0.16565642, 0.16565639, 1)
+theme_override_colors/font_shadow_color = Color(0.47772512, 0.47772512, 0.47772512, 0.23500001)
+theme_override_fonts/font = ExtResource("2_ed2gm")
+theme_override_font_sizes/font_size = 14
+text = "SYL-7421-P"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LblFingerprintId" type="Label" parent="FieldsContainer" unique_id=930927864]
+layout_mode = 0
+offset_left = -134.0
+offset_top = 106.0
+offset_right = -52.0
+offset_bottom = 129.0
+theme_override_colors/font_color = Color(0.16565639, 0.16565642, 0.16565639, 1)
+theme_override_colors/font_shadow_color = Color(0.47772512, 0.47772512, 0.47772512, 0.23500001)
+theme_override_fonts/font = ExtResource("2_ed2gm")
+theme_override_font_sizes/font_size = 11
+text = "SYL-7421-P"
+horizontal_alignment = 1
+vertical_alignment = 1

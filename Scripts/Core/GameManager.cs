@@ -11,22 +11,30 @@ public partial class GameManager : Node2D
 {
     public static GameManager Instance { get; private set; }
     
-    [ExportGroup("Cấu hình Dữ liệu Màn 1")]
+    [ExportGroup("Cấu hình Dữ liệu Màn 1 (Danh sách NPC)")]
     [Export(PropertyHint.Dir)]
-    private string _characterFolderPath = "res://Data/Characters/Arthur Pendelton 1";
+    private string[] _npcFolders = new string[] 
+    {
+        "res://Data/Characters/Arthur Pendelton 1",
+        "res://Data/Characters/Aleksei Volkov 3",
+        "res://Data/Characters/Elena Vasquez 2",
+        "res://Data/Characters/Lila Moonwhisper 6"
+    };
     
     [ExportGroup("Ngày hiện tại trong Game (Để kiểm tra hạn giấy tờ)")]
     [Export] private string _currentGameDate = "2130-01-01";
     
     [ExportGroup("Tham chiếu Thực thể trong Scene")]
-    [Export] private Sprite2D _npcVisual;                 // Node TEST3 (hiển thị NPC đứng quầy)
+    [Export] private Sprite2D _npcVisual;                  // Node TEST3 (hiển thị NPC đứng quầy)
     [Export] private Document2D _passportDocument;         // Node Document2D (Hộ chiếu trên bàn)
     [Export] private TrainTicket2D _trainTicketDocument;   // Node TrainTicket2D (Vé tàu trên bàn)
+    [Export] private AsylumPaper2D _asylumPaperDocument;   // Node AsylumPaper2D (Đơn tị nạn trên bàn)
     [Export] private NPCBooth _npcBoothController;         // Node điều khiển NPC đi vào / rời quầy
     
     // Dữ liệu JSON của NPC hiện tại
     public PassportJsonData CurrentPassport { get; private set; }
     public TrainTicketJsonData CurrentTicket { get; private set; }
+    public AsylumPaperJsonData CurrentAsylumPaper { get; private set; }
     public Dictionary<string, JsonElement> LoadedDocuments { get; private set; } = new();
     
     // Kết quả sau khi chạy đối chiếu chéo
@@ -36,6 +44,10 @@ public partial class GameManager : Node2D
     // Lưu trạng thái con dấu người chơi đã đóng lên hộ chiếu (null = chưa đóng dấu, true = Approved, false = Denied)
     public bool? PlayerStampDecision { get; private set; } = null;
     
+    // Biến quản lý luồng NPC
+    private Queue<string> _characterFoldersQueue = new Queue<string>();
+    private Timer _nextNpcTimer;
+
     public override void _EnterTree()
     {
         Instance = this;
@@ -56,11 +68,58 @@ public partial class GameManager : Node2D
         if (_trainTicketDocument == null)
             _trainTicketDocument = GetNodeOrNull<TrainTicket2D>("DocumentDeskArea/TrainTicket2D");
             
-        // 2. Import dữ liệu từ thư mục nhân vật
-        ImportCharacterFolder(_characterFolderPath);
-        
-        // 3. Chạy thuật toán đối chiếu chéo thông tin giữa các giấy tờ
-        RunCrossCheckValidation();
+        if (_asylumPaperDocument == null)
+            _asylumPaperDocument = GetNodeOrNull<AsylumPaper2D>("DocumentDeskArea/AsylumPaper2D");
+            
+        // 2. Khởi tạo Timer để chờ 3 giây trước khi gọi người tiếp theo
+        _nextNpcTimer = new Timer();
+        _nextNpcTimer.WaitTime = 3.0f; // Chờ 3 giây
+        _nextNpcTimer.OneShot = true;
+        _nextNpcTimer.Timeout += OnNextNpcTimerTimeout;
+        AddChild(_nextNpcTimer);
+
+        // 3. Nạp danh sách NPC vào hàng đợi
+        foreach (var folder in _npcFolders)
+        {
+            _characterFoldersQueue.Enqueue(folder);
+        }
+
+        // 4. Bắt đầu luồng bằng cách gọi NPC đầu tiên
+        AdvanceToNextNPC();
+    }
+    
+    /// <summary>
+    /// Hàm nạp NPC tiếp theo từ hàng đợi
+    /// </summary>
+    private void AdvanceToNextNPC()
+    {
+        if (_characterFoldersQueue.Count > 0)
+        {
+            string nextFolderPath = _characterFoldersQueue.Dequeue();
+            ImportCharacterFolder(nextFolderPath);
+            
+            // Chạy thuật toán đối chiếu chéo thông tin giữa các giấy tờ
+            RunCrossCheckValidation();
+
+            // Gọi NPC bước vào quầy
+            if (_npcBoothController != null)
+            {
+                _npcBoothController.StartWalkingWithBobbing();
+            }
+        }
+        else
+        {
+            GD.Print("[GameManager]: Đã hết NPC trong danh sách (End of Day).");
+            // Tại đây có thể thêm logic kết thúc ngày (Fade-out màn hình, hiện bảng tổng kết điểm...)
+        }
+    }
+
+    /// <summary>
+    /// Sự kiện khi Timer 3 giây kết thúc
+    /// </summary>
+    private void OnNextNpcTimerTimeout()
+    {
+        AdvanceToNextNPC();
     }
     
     /// <summary>
@@ -71,6 +130,7 @@ public partial class GameManager : Node2D
         LoadedDocuments.Clear();
         CurrentPassport = null;
         CurrentTicket = null;
+        CurrentAsylumPaper = null;
         PlayerStampDecision = null;
         
         string globalPath = ProjectSettings.GlobalizePath(folderPath);
@@ -115,6 +175,13 @@ public partial class GameManager : Node2D
                 {
                     _passportDocument.LoadPassportFromJson(fullPath);
                 }
+                
+                // Đồng bộ ảnh NPC đứng quầy dựa trên Avatar của Passport
+                if (_npcVisual != null && !string.IsNullOrEmpty(CurrentPassport.AvatarFile))
+                {
+                    string npcImagePath = CurrentPassport.AvatarFile.Replace("_avatar.png", ".png");
+                    _npcVisual.Texture = GD.Load<Texture2D>(npcImagePath);
+                }
             }
             else if (fileName == "train_ticket.json")
             {
@@ -124,6 +191,15 @@ public partial class GameManager : Node2D
                     _trainTicketDocument.LoadTicketFromJson(fullPath);
                 }
             }
+            else if (fileName == "asylum_paper.json")
+            {
+                CurrentAsylumPaper = JsonSerializer.Deserialize<AsylumPaperJsonData>(jsonText);
+                if (_asylumPaperDocument != null)
+                {
+                    _asylumPaperDocument.LoadAsylumFromJson(fullPath);
+                }
+            }
+            
             GD.Print($"[GameManager]: Đã nạp thành công file '{fileName}'");
         }
         catch (Exception ex)
@@ -273,5 +349,14 @@ public partial class GameManager : Node2D
         {
             GD.PrintErr("[GameManager]: Không tìm thấy tham chiếu _npcBoothController!");
         }
+    }
+
+    /// <summary>
+    /// Hàm này được gọi bởi NPCBooth khi NPC hiện tại đã rời khỏi màn hình hoàn toàn
+    /// </summary>
+    public void OnNPCFinishedExit()
+    {
+        GD.Print("[GameManager]: Bắt đầu chờ 3 giây trước khi gọi NPC tiếp theo...");
+        _nextNpcTimer.Start();
     }
 }

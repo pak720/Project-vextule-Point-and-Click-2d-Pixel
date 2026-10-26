@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgdnmystavtj"
-path="res://.godot/imported/asylum_paper.png-d0f8a09c633db9172614daff6b90b3cd.ctex"
+uid="uid://c8mh87quptip"
+path="res://.godot/imported/passport.png-61a616bb71beecfbc16397197c8e3e2e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Data/Characters/Elena Vasquez 2 (Valid)/asylum_paper.png"
-dest_files=["res://.godot/imported/asylum_paper.png-d0f8a09c633db9172614daff6b90b3cd.ctex"]
+source_file="res://Data/Characters/Lila Moonwhisper 6/passport.png"
+dest_files=["res://.godot/imported/passport.png-61a616bb71beecfbc16397197c8e3e2e.ctex"]
 
 [params]
 

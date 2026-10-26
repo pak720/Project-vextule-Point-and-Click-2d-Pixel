@@ -23,6 +23,7 @@ public partial class NPCBooth : Sprite2D
     [ExportGroup("Tài liệu bàn giao")]
     [Export] private Document2D _passportDocument;
     [Export] private TrainTicket2D _trainTicketDocument;
+    [Export] private AsylumPaper2D _asylumPaperDocument;
     [Export] private Vector2 _boothTableDropPosition = new Vector2(520.0f, 620.0f);
 
     private bool _isWalking = false;
@@ -41,8 +42,9 @@ public partial class NPCBooth : Sprite2D
 
         if (_trainTicketDocument == null)
             _trainTicketDocument = GetNodeOrNull<TrainTicket2D>("../DocumentDeskArea/TrainTicket2D");
-
-        StartWalkingWithBobbing();
+            
+        if (_asylumPaperDocument == null)
+            _asylumPaperDocument = GetNodeOrNull<AsylumPaper2D>("../DocumentDeskArea/AsylumPaper2D");
     }
 
     public void StartWalkingWithBobbing()
@@ -82,17 +84,35 @@ public partial class NPCBooth : Sprite2D
 
     private void OnNPCArrivedAtBooth()
     {
-        if (_passportDocument != null)
+        // 1. CHỈ HIỆN HỘ CHIẾU NẾU CÓ DỮ LIỆU
+        if (_passportDocument != null && GameManager.Instance?.CurrentPassport != null)
         {
+            _passportDocument.Visible = true; 
+            _passportDocument.Scale = new Vector2(1.0f, 1.0f); // KHÔI PHỤC KÍCH THƯỚC (QUAN TRỌNG)
+            
             Vector2 passStartPos = new Vector2(_boothTableDropPosition.X - 80.0f, _boothTableDropPosition.Y - 60.0f);
             _passportDocument.SpawnAsCoverOnBooth(passStartPos, _boothTableDropPosition);
         }
 
-        if (_trainTicketDocument != null)
+        // 2. CHỈ HIỆN VÉ TÀU NẾU CÓ DỮ LIỆU
+        if (_trainTicketDocument != null && GameManager.Instance?.CurrentTicket != null)
         {
+            _trainTicketDocument.Visible = true; 
+            _trainTicketDocument.Scale = new Vector2(1.0f, 1.0f); // Khôi phục kích thước dự phòng
+            
             Vector2 ticketDropPos = _boothTableDropPosition + new Vector2(50.0f, 15.0f);
             Vector2 ticketStartPos = new Vector2(ticketDropPos.X - 80.0f, ticketDropPos.Y - 60.0f);
             _trainTicketDocument.SpawnAsSmallOnBooth(ticketStartPos, ticketDropPos);
+        }
+        
+        // 3. CHỈ HIỆN ĐƠN TỊ NẠN NẾU CÓ DỮ LIỆU
+        if (_asylumPaperDocument != null && GameManager.Instance?.CurrentAsylumPaper != null)
+        {
+            _asylumPaperDocument.Visible = true; 
+
+            Vector2 asylumDropPos = _boothTableDropPosition + new Vector2(-40.0f, 30.0f);
+            Vector2 asylumStartPos = new Vector2(asylumDropPos.X - 80.0f, asylumDropPos.Y - 60.0f);
+            _asylumPaperDocument.SpawnAsSmallOnBooth(asylumStartPos, asylumDropPos);
         }
     }
 
@@ -101,7 +121,6 @@ public partial class NPCBooth : Sprite2D
     /// </summary>
     public void TakeDocumentsAndExit(bool isApproved)
     {
-        // Tự động kiểm tra chéo với GameManager nếu bị truyền nhầm false
         if (GameManager.Instance?.PlayerStampDecision.HasValue == true)
         {
             isApproved = GameManager.Instance.PlayerStampDecision.Value;
@@ -124,6 +143,12 @@ public partial class NPCBooth : Sprite2D
             docTween.TweenProperty(_trainTicketDocument, "global_position", handoverTarget, 0.35f);
             docTween.TweenProperty(_trainTicketDocument, "scale", Vector2.Zero, 0.35f);
         }
+        
+        if (_asylumPaperDocument != null && _asylumPaperDocument.Visible)
+        {
+            docTween.TweenProperty(_asylumPaperDocument, "global_position", handoverTarget, 0.35f);
+            docTween.TweenProperty(_asylumPaperDocument, "scale", Vector2.Zero, 0.35f);
+        }
 
         bool finalApproved = isApproved;
         docTween.Finished += () =>
@@ -138,6 +163,11 @@ public partial class NPCBooth : Sprite2D
             {
                 _trainTicketDocument.Visible = false;
             }
+            
+            if (_asylumPaperDocument != null)
+            {
+                _asylumPaperDocument.Visible = false;
+            }
 
             ExitBooth(finalApproved);
         };
@@ -148,7 +178,6 @@ public partial class NPCBooth : Sprite2D
     /// </summary>
     public void ExitBooth(bool isApproved)
     {
-        // Đảm bảo lấy phán quyết chuẩn xác từ GameManager
         if (GameManager.Instance?.PlayerStampDecision.HasValue == true)
         {
             isApproved = GameManager.Instance.PlayerStampDecision.Value;
@@ -157,17 +186,10 @@ public partial class NPCBooth : Sprite2D
         KillAllTweens();
         _isWalking = true;
 
-        // Approve (+1): Đi qua PHẢI | Denied (-1): Đi qua TRÁI
         float direction = isApproved ? 1.0f : -1.0f;
-        FlipH = !isApproved; // Lật mặt nhìn sang trái khi Denied
+        FlipH = !isApproved; 
 
         float targetExitX = Position.X + (direction * _exitDistance);
-
-        GD.Print($"=================================================");
-        GD.Print($"[NPC EXIT]: isApproved = {isApproved}");
-        GD.Print($"[NPC EXIT]: Hướng đi = {(isApproved ? "SANG PHẢI (APPROVE)" : "SANG TRÁI (DENIED)")}");
-        GD.Print($"[NPC EXIT]: Tọa độ từ {Position.X} -> {targetExitX}");
-        GD.Print($"=================================================");
 
         _activeMoveTween = CreateTween();
         _activeMoveTween.SetParallel(true);
@@ -190,13 +212,11 @@ public partial class NPCBooth : Sprite2D
             _isWalking = false;
             FlipH = false;
             Position = _startPosition;
-            GD.Print($"[NPCBooth]: NPC đã rời khỏi màn hình hoàn tất.");
+            
+            GameManager.Instance?.OnNPCFinishedExit(); 
         };
     }
 
-    /// <summary>
-    /// Hàm tương thích: Tự động lấy PlayerStampDecision từ GameManager thay vì mặc định false
-    /// </summary>
     public void WalkAwayAndFinishTurn()
     {
         bool decision = GameManager.Instance?.PlayerStampDecision ?? false;

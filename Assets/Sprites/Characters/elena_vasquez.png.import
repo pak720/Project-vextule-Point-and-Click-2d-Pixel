@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8mh87quptip"
-path="res://.godot/imported/passport.png-ab9e55aed56f70ad27eb2f737026d597.ctex"
+uid="uid://oihtl2ncy7d"
+path="res://.godot/imported/elena_vasquez.png-fe1f02f7b2ac1e2e0fe6ecc302a66c9c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Data/Characters/Lila Moonwhisper 6 (Valid)/passport.png"
-dest_files=["res://.godot/imported/passport.png-ab9e55aed56f70ad27eb2f737026d597.ctex"]
+source_file="res://Assets/Sprites/Characters/elena_vasquez.png"
+dest_files=["res://.godot/imported/elena_vasquez.png-fe1f02f7b2ac1e2e0fe6ecc302a66c9c.ctex"]
 
 [params]
 

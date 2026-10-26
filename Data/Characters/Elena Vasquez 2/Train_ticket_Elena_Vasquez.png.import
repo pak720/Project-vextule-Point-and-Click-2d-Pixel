@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7qprp2dvdts"
-path="res://.godot/imported/Train_ticket_Lila_Moonwhisper.png-db6304227ab19e245809107452d149fd.ctex"
+uid="uid://ctoj66gmixhh"
+path="res://.godot/imported/Train_ticket_Elena_Vasquez.png-8590cf2d47a9d7b84b8056bc4930a50e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Data/Characters/Lila Moonwhisper 6 (Valid)/Train_ticket_Lila_Moonwhisper.png"
-dest_files=["res://.godot/imported/Train_ticket_Lila_Moonwhisper.png-db6304227ab19e245809107452d149fd.ctex"]
+source_file="res://Data/Characters/Elena Vasquez 2/Train_ticket_Elena_Vasquez.png"
+dest_files=["res://.godot/imported/Train_ticket_Elena_Vasquez.png-8590cf2d47a9d7b84b8056bc4930a50e.ctex"]
 
 [params]
 
