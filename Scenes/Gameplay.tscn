@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bva41j5ctrq2q" path="res://Scenes/Components/AsylumPaper.tscn" id="7_2aia5"]
 [ext_resource type="PackedScene" uid="uid://cruww70m1k8kn" path="res://Scenes/Components/TrainTicket.tscn" id="7_w5l26"]
 [ext_resource type="Texture2D" uid="uid://frupsegmunjf" path="res://Assets/Sprites/Documents/Pass_cover.png" id="7_xwjbm"]
+[ext_resource type="Texture2D" uid="uid://b4k8tjwmqcbqf" path="res://Assets/Sprites/UI/Screenshot 2026-10-26 201512.png" id="10_qaqk3"]
 [ext_resource type="Texture2D" uid="uid://b1kuba1p7jxmx" path="res://Assets/Sprites/Documents/passcover_on_table.png" id="11_cfeic"]
 [ext_resource type="Texture2D" uid="uid://bxiq2v7todwr3" path="res://Assets/Sprites/Documents/AsylumDoc.png" id="13_7wr7o"]
 [ext_resource type="Texture2D" uid="uid://oihtl2ncy7d" path="res://Assets/Sprites/Characters/elena_vasquez.png" id="16_bk2no"]
@@ -78,6 +79,11 @@ _boothTableArea = NodePath("../../BoothTableArea")
 visible = false
 position = Vector2(717, 665)
 _boothTableArea = NodePath("../../BoothTableArea")
+
+[node name="Sprite2D" type="Sprite2D" parent="DocumentDeskArea" unique_id=553865482]
+position = Vector2(730.25, 67)
+scale = Vector2(0.46025437, 0.5090909)
+texture = ExtResource("10_qaqk3")
 
 [node name="StampStation" parent="." unique_id=1011615191 instance=ExtResource("3_tdndw")]
 position = Vector2(1651, 487)
