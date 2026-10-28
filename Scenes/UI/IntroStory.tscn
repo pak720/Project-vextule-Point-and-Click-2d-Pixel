@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dpupyr1xylfrg" path="res://Assets/Sprites/Backgrounds/intro_scene_01.png" id="2_k5m1j"]
 [ext_resource type="Texture2D" uid="uid://bekt7ma7fuamc" path="res://Assets/Sprites/Backgrounds/intro_scene_02.png" id="3_et13f"]
 [ext_resource type="Texture2D" uid="uid://ve3t2s5ph8u0" path="res://Assets/Sprites/Backgrounds/intro_scene_03.png" id="4_58vle"]
+[ext_resource type="Texture2D" uid="uid://dvrrmooyqwjkr" path="res://Assets/Sprites/Backgrounds/intro_scene_04.png" id="5_et13f"]
 
 [node name="IntroStory" type="Control" unique_id=93366239 node_paths=PackedStringArray("_dialogLabel", "_continueHint", "_backgroundRect")]
 layout_mode = 3
@@ -17,7 +18,7 @@ script = ExtResource("1_nqykt")
 _dialogLabel = NodePath("DialogContainer/DialogLabel")
 _continueHint = NodePath("ContinueHint")
 _backgroundRect = NodePath("Background")
-_backgroundTextures = Array[Texture2D]([ExtResource("2_k5m1j"), ExtResource("3_et13f"), ExtResource("4_58vle")])
+_backgroundTextures = Array[Texture2D]([ExtResource("2_k5m1j"), ExtResource("3_et13f"), ExtResource("4_58vle"), ExtResource("5_et13f")])
 
 [node name="Background" type="TextureRect" parent="." unique_id=1657502483]
 layout_mode = 1

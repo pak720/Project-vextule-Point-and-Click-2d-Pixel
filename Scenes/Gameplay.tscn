@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dpvnlxfm6r816"]
 
 [ext_resource type="Script" uid="uid://b1g4xut3gsl3s" path="res://Scripts/Core/GameManager.cs" id="1_r5ka5"]
+[ext_resource type="Texture2D" uid="uid://cnvixlqhhc73c" path="res://Assets/Sprites/Backgrounds/Background.png" id="2_rbnsi"]
 [ext_resource type="Texture2D" uid="uid://coh7fu3x5h4j5" path="res://Assets/Sprites/UI/table1.png" id="2_tdndw"]
 [ext_resource type="Texture2D" uid="uid://kcy7ja7nuvec" path="res://Assets/Sprites/UI/GuardRail.png" id="2_uotjs"]
 [ext_resource type="Texture2D" uid="uid://vl431w2850ei" path="res://Assets/Sprites/Characters/arthur_pendelton.png" id="3_rhmiw"]
@@ -16,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://b4k8tjwmqcbqf" path="res://Assets/Sprites/UI/Screenshot 2026-10-26 201512.png" id="10_qaqk3"]
 [ext_resource type="Texture2D" uid="uid://b1kuba1p7jxmx" path="res://Assets/Sprites/Documents/passcover_on_table.png" id="11_cfeic"]
 [ext_resource type="Texture2D" uid="uid://bxiq2v7todwr3" path="res://Assets/Sprites/Documents/AsylumDoc.png" id="13_7wr7o"]
+[ext_resource type="Texture2D" uid="uid://dfh6g75c5orjk" path="res://Assets/Sprites/UI/ScanButton.png" id="13_upsvf"]
 [ext_resource type="Texture2D" uid="uid://oihtl2ncy7d" path="res://Assets/Sprites/Characters/elena_vasquez.png" id="16_bk2no"]
 [ext_resource type="Texture2D" uid="uid://b0n0scgqsavf1" path="res://Assets/Sprites/Characters/lila_moonwhisper.png" id="17_qaqk3"]
 
@@ -28,6 +30,11 @@ _npcVisual = NodePath("TEST3")
 _passportDocument = NodePath("DocumentDeskArea/Document2D")
 _asylumPaperDocument = NodePath("DocumentDeskArea/AsylumPaper2D")
 _npcBoothController = NodePath("TEST3")
+
+[node name="Background" type="Sprite2D" parent="." unique_id=299651725]
+position = Vector2(116.75003, 340.75)
+scale = Vector2(0.44455487, 0.47906846)
+texture = ExtResource("2_rbnsi")
 
 [node name="GuardRail" type="Sprite2D" parent="." unique_id=2019609414]
 position = Vector2(224, 515)
@@ -88,7 +95,12 @@ texture = ExtResource("10_qaqk3")
 [node name="StampStation" parent="." unique_id=1011615191 instance=ExtResource("3_tdndw")]
 position = Vector2(1651, 487)
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1241671986]
+[node name="Button (Placeholder)" type="Sprite2D" parent="." unique_id=1535450268]
+position = Vector2(1356.0001, 904)
+scale = Vector2(4.6875, 4.375)
+texture = ExtResource("13_upsvf")
+
+[node name="Tray" type="Sprite2D" parent="." unique_id=1241671986]
 texture_filter = 1
 position = Vector2(1384, 484)
 texture = ExtResource("4_ovofm")

@@ -9,28 +9,32 @@ public partial class IntroStoryController : Control
     [Export] private Label _continueHint;
     [Export] private TextureRect _backgroundRect;
 
-    // Danh sách 3 ảnh nền bối cảnh được gán trên Inspector
+    // Danh sách 4 ảnh nền bối cảnh được gán trên Inspector (Đã tăng từ 3 lên 4)
     [Export] private Texture2D[] _backgroundTextures;
 
     // Đích đến sau khi kết thúc Intro: Màn hình chuyển tiếp Day 1
     [Export] private string _dayTransitionScenePath = "res://Scenes/UI/DayTransition.tscn";
 
-    // Danh sách các câu dẫn dắt bối cảnh và câu chuyện của nhân vật chính
+    // Danh sách các câu dẫn dắt bối cảnh (Đã bổ sung thêm text cho ảnh 4)
     private readonly string[] _storyLines = new string[]
     {
-        // [ẢNH 1] Bối cảnh thế giới
+        // [ẢNH 1 - Index 0] Bối cảnh thế giới (Câu 0, 1)
         "Năm 2167, Khu vực biên giới Kusetan quân sự hóa nghiêm ngặt.",
         "Trật tự cũ sụp đổ, các thành phố giờ đây ngập tràn trong khói đạn và những đống đổ nát lạnh lẽo.",
         
-        // [ẢNH 2] Hoàn cảnh nhân vật chính & Lý do nhận việc
+        // [ẢNH 2 - Index 1] Hoàn cảnh nhân vật chính (Câu 2, 3, 4, 5)
         "Bạn — một cựu binh may mắn sống sót, đang phải chật vật từng ngày nuôi sống gia đình trong một căn hầm tối tăm tại thủ đô.",
         "Giữa cái đói và sự kiểm soát gắt gao của chính quyền mới, cơ hội duy nhất đến từ 'Cuộc xổ số việc làm lao động quốc gia'.",
         "Tên của bạn được xướng lên. Bạn được bổ nhiệm làm Thanh tra kiểm soát nhập cảnh tại Trạm biên giới Kusetan.",
         "Một công việc có thể mang lại thức ăn, sưởi ấm cho gia đình, nhưng cái giá phải trả là sự phục tùng tuyệt đối.",
 
-        // [ẢNH 3] Nhiệm vụ bắt đầu
+        // [ẢNH 3 - Index 2] Nhiệm vụ bắt đầu (Câu 6, 7)
         "Đứng trước ranh giới của sự chia cắt, thế giới đang chờ đợi một quyết định có thể thay đổi toàn bộ lịch sử.",
-        "Nhiệm vụ của bạn bắt đầu ngay hôm nay. Hãy cẩn thận với từng quyết định."
+        "Nhiệm vụ của bạn bắt đầu ngay hôm nay. Hãy cẩn thận với từng quyết định.",
+
+        // [ẢNH 4 - Index 3] CẢNH MỚI THÊM VÀO (Câu 8, 9) - Bạn hãy sửa lại text ở đây nhé!
+        "Biên giới không chỉ chia cắt những vùng đất, mà nó chia cắt cả hy vọng và mạng sống của những người qua đây.",
+        "Cánh cổng sắt đã mở. Những người đầu tiên đang tiến đến quầy của bạn..."
     };
 
     private int _currentLineIndex = 0;
@@ -50,7 +54,6 @@ public partial class IntroStoryController : Control
         ShowCurrentLine();
     }
 
-    // Bắt sự kiện click chuột trực tiếp trên giao diện màn hình
     public override void _GuiInput(InputEvent @event)
     {
         if (_isTransitioning) return;
@@ -61,7 +64,6 @@ public partial class IntroStoryController : Control
         }
     }
 
-    // Bắt phím Space hoặc Enter toàn cục
     public override void _Input(InputEvent @event)
     {
         if (_isTransitioning) return;
@@ -79,27 +81,26 @@ public partial class IntroStoryController : Control
 
         if (_currentLineIndex < _storyLines.Length)
         {
-            // 1. Hiển thị nội dung câu thoại
             _dialogLabel.Text = _storyLines[_currentLineIndex];
 
-            // 2. Tự động chuyển đổi ảnh nền tương ứng theo mạch truyện:
-            // Câu 0, 1 -> Ảnh 0 (Dàn xe tăng bên hàng rào)
-            // Câu 2, 3, 4, 5 -> Ảnh 1 (Thành phố đổ nát / Hoàn cảnh nghèo đói)
-            // Câu 6, 7 -> Ảnh 2 (Xe tăng trên đồi cỏ nhìn về biên giới)
+            // LOGIC CHUYỂN ẢNH ĐÃ ĐƯỢC CẬP NHẬT CHO 4 ẢNH
             if (_backgroundRect != null && _backgroundTextures != null && _backgroundTextures.Length > 0)
             {
                 int textureIndex = 0;
 
                 if (_currentLineIndex >= 2 && _currentLineIndex <= 5)
                 {
-                    textureIndex = 1;
+                    textureIndex = 1; // ẢNH 2
                 }
-                else if (_currentLineIndex >= 6)
+                else if (_currentLineIndex >= 6 && _currentLineIndex <= 7)
                 {
-                    textureIndex = 2;
+                    textureIndex = 2; // ẢNH 3
+                }
+                else if (_currentLineIndex >= 8)
+                {
+                    textureIndex = 3; // ẢNH 4 (Mới thêm)
                 }
 
-                // Bảo vệ chống tràn mảng nếu gán thiếu ảnh trên Inspector
                 textureIndex = Math.Min(textureIndex, _backgroundTextures.Length - 1);
 
                 if (_backgroundTextures[textureIndex] != null)
@@ -108,7 +109,6 @@ public partial class IntroStoryController : Control
                 }
             }
 
-            // Hiệu ứng mờ dần (Fade In) mượt mà cho chữ mỗi khi chuyển câu
             _dialogLabel.Modulate = new Color(1, 1, 1, 0);
             Tween tween = CreateTween();
             tween.TweenProperty(_dialogLabel, "modulate:a", 1.0f, 0.35f);
@@ -133,7 +133,6 @@ public partial class IntroStoryController : Control
     {
         _isTransitioning = true;
 
-        // Làm mờ toàn bộ màn hình trước khi chuyển cảnh
         Tween tween = CreateTween();
         tween.TweenProperty(this, "modulate:a", 0.0f, 0.5f);
         tween.Finished += () =>
