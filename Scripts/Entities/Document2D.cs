@@ -152,39 +152,48 @@ public partial class Document2D : Area2D
 
     private void OnDocumentInput(Node viewport, InputEvent @event, long shapeIdx)
     {
-        if (@event is InputEventMouseButton mouseEvent && mouseEvent.ButtonIndex == MouseButton.Left)
+        if (@event is InputEventMouseButton mouseEvent && mouseEvent.ButtonIndex == MouseButton.Left && mouseEvent.Pressed)
         {
-            if (mouseEvent.Pressed)
-            {
-                // Kiểm tra xung đột: Nếu đang kéo một giấy tờ khác thì chặn lại
-                if (CurrentDraggedDocument != null && CurrentDraggedDocument != this)
-                    return;
-                    
-                _dropTween?.Kill();
-                _isDragging = true;
-                CurrentDraggedDocument = this;
-                _dragOffset = GlobalPosition - GetGlobalMousePosition();
-                
-                // Đưa hộ chiếu lên trên cùng để không bị che khuất
-                GetParent()?.MoveChild(this, GetParent().GetChildCount() - 1);
-                
-                // Chặn sự kiện click chuột không truyền xuyên thấu xuống các đối tượng nằm dưới
-                GetViewport().SetInputAsHandled();
-            }
-            else if (_isDragging)
-            {
-                _isDragging = false;
-                
-                if (CurrentDraggedDocument == this)
-                {
-                    CurrentDraggedDocument = null;
-                }
-                
-                if (!_isOpen)
-                {
-                    DropToBoothTableAreaUnderMouse();
-                }
-            }
+            // Kiểm tra xung đột: Nếu đang kéo một giấy tờ khác thì chặn lại
+            if (CurrentDraggedDocument != null && CurrentDraggedDocument != this)
+                return;
+
+            _dropTween?.Kill();
+            _isDragging = true;
+            CurrentDraggedDocument = this;
+            _dragOffset = GlobalPosition - GetGlobalMousePosition();
+
+            // Đưa hộ chiếu lên trên cùng để không bị che khuất
+            GetParent()?.MoveChild(this, GetParent().GetChildCount() - 1);
+
+            // Chặn sự kiện click chuột không truyền xuyên thấu xuống các đối tượng nằm dưới
+            GetViewport().SetInputAsHandled();
+        }
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        // Bắt nhả chuột trái ở _Input để không bao giờ bị kẹt drag khi chuột trượt ra ngoài collider
+        if (_isDragging && @event is InputEventMouseButton mouseEvent &&
+            mouseEvent.ButtonIndex == MouseButton.Left && !mouseEvent.Pressed)
+        {
+            EndDrag();
+            GetViewport().SetInputAsHandled();
+        }
+    }
+
+    private void EndDrag()
+    {
+        _isDragging = false;
+
+        if (CurrentDraggedDocument == this)
+        {
+            CurrentDraggedDocument = null;
+        }
+
+        if (!_isOpen)
+        {
+            DropToBoothTableAreaUnderMouse();
         }
     }
 

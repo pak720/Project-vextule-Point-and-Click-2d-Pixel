@@ -34,20 +34,33 @@ public partial class Stamper : Area2D
     {
         if (_isStamping) return;
 
-        if (@event is InputEventMouseButton mouseEvent && mouseEvent.ButtonIndex == MouseButton.Left)
+        if (@event is InputEventMouseButton mouseEvent && mouseEvent.ButtonIndex == MouseButton.Left && mouseEvent.Pressed)
         {
-            if (mouseEvent.Pressed)
-            {
-                _isDragging = true;
-                _dragOffset = GlobalPosition - GetGlobalMousePosition();
-            }
-            else if (_isDragging)
-            {
-                _isDragging = false;
-                _exactDropGlobalPos = GlobalPosition;
-                PlayStampAnimation();
-            }
+            if (Document2D.CurrentDraggedDocument != null)
+                return;
+
+            _isDragging = true;
+            _dragOffset = GlobalPosition - GetGlobalMousePosition();
+            GetViewport().SetInputAsHandled();
         }
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        // Bắt nhả chuột trái ở _Input để luôn dập dấu đúng dù kéo nhanh ra ngoài collider
+        if (_isDragging && !_isStamping && @event is InputEventMouseButton mouseEvent &&
+            mouseEvent.ButtonIndex == MouseButton.Left && !mouseEvent.Pressed)
+        {
+            EndDragAndStamp();
+            GetViewport().SetInputAsHandled();
+        }
+    }
+
+    private void EndDragAndStamp()
+    {
+        _isDragging = false;
+        _exactDropGlobalPos = GlobalPosition;
+        PlayStampAnimation();
     }
 
     public override void _Process(double delta)
