@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://dfh6g75c5orjk" path="res://Assets/Sprites/UI/ScanButton.png" id="13_upsvf"]
 [ext_resource type="Texture2D" uid="uid://oihtl2ncy7d" path="res://Assets/Sprites/Characters/elena_vasquez.png" id="16_bk2no"]
 [ext_resource type="Texture2D" uid="uid://b0n0scgqsavf1" path="res://Assets/Sprites/Characters/lila_moonwhisper.png" id="17_qaqk3"]
+[ext_resource type="PackedScene" path="res://Scenes/Components/RuleBook.tscn" id="18_ruleb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xpcuk"]
 size = Vector2(377, 67)
@@ -86,6 +87,9 @@ _boothTableArea = NodePath("../../BoothTableArea")
 visible = false
 position = Vector2(717, 665)
 _boothTableArea = NodePath("../../BoothTableArea")
+
+[node name="RuleBook2D" parent="DocumentDeskArea" instance=ExtResource("18_ruleb")]
+position = Vector2(307, 886)
 
 [node name="Sprite2D" type="Sprite2D" parent="DocumentDeskArea" unique_id=553865482]
 position = Vector2(730.25, 67)
