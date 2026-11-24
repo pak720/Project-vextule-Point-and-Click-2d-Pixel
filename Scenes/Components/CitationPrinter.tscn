@@ -1,0 +1,76 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/Entities/CitationPrinter.cs" id="1_script"]
+[ext_resource type="Script" path="res://Scripts/Entities/CitationSlip2D.cs" id="7_slip_script"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/UI/Citation/printer_slot_back.png" id="2_back"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/UI/Citation/citation_slip.png" id="3_slip"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/UI/Citation/printer_slot_front_lip.png" id="4_lip"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/UI/Citation/printer_led_active.png" id="5_led"]
+[ext_resource type="FontFile" uid="uid://dhmmyov6h0k3t" path="res://Assets/Fonts/Font2.ttf" id="6_font"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_slip"]
+size = Vector2(220, 140)
+
+[node name="CitationPrinter" type="Node2D" node_paths=PackedStringArray("_citationSlip", "_reasonLabel", "_penaltyLabel", "_ledActive")]
+script = ExtResource("1_script")
+_citationSlip = NodePath("CitationSlip")
+_reasonLabel = NodePath("CitationSlip/ReasonLabel")
+_penaltyLabel = NodePath("CitationSlip/PenaltyLabel")
+_ledActive = NodePath("LedActive")
+
+[node name="PrinterBack" type="Sprite2D" parent="."]
+z_index = 10
+texture_filter = 1
+texture = ExtResource("2_back")
+
+[node name="CitationSlip" type="Area2D" parent="."]
+visible = false
+z_index = 11
+position = Vector2(0, 70)
+script = ExtResource("7_slip_script")
+
+[node name="SlipSprite" type="Sprite2D" parent="CitationSlip"]
+texture_filter = 1
+texture = ExtResource("3_slip")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CitationSlip"]
+shape = SubResource("RectangleShape2D_slip")
+
+[node name="ReasonLabel" type="Label" parent="CitationSlip"]
+offset_left = -96.0
+offset_top = -22.0
+offset_right = 96.0
+offset_bottom = 28.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.18039216, 0.16470589, 0.14901961, 1)
+theme_override_constants/line_spacing = 2
+theme_override_fonts/font = ExtResource("6_font")
+theme_override_font_sizes/font_size = 11
+text = ""
+autowrap_mode = 3
+clip_text = true
+
+[node name="PenaltyLabel" type="Label" parent="CitationSlip"]
+offset_left = -48.0
+offset_top = 33.0
+offset_right = 98.0
+offset_bottom = 48.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.54901963, 0.1764706, 0.1764706, 1)
+theme_override_fonts/font = ExtResource("6_font")
+theme_override_font_sizes/font_size = 11
+text = "WARNING - NO PENALTY"
+vertical_alignment = 1
+
+[node name="PrinterFrontLip" type="Sprite2D" parent="."]
+z_index = 12
+texture_filter = 1
+texture = ExtResource("4_lip")
+
+[node name="LedActive" type="Sprite2D" parent="."]
+visible = false
+z_index = 13
+texture_filter = 1
+position = Vector2(120.5, -5.5)
+texture = ExtResource("5_led")
+

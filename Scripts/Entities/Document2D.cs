@@ -240,8 +240,7 @@ public partial class Document2D : Area2D
             if (Game.Core.GameManager.Instance != null &&
                 Game.Core.GameManager.Instance.PlayerStampDecision != null)
             {
-                var booth = GetTree().CurrentScene.GetNodeOrNull<NPCBooth>("TEST3");
-                booth?.WalkAwayAndFinishTurn();
+                Game.Core.GameManager.Instance.ReturnDocumentsToNPC();
             }
         };
     }

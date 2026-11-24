@@ -21,16 +21,18 @@
 [ext_resource type="Texture2D" uid="uid://oihtl2ncy7d" path="res://Assets/Sprites/Characters/elena_vasquez.png" id="16_bk2no"]
 [ext_resource type="Texture2D" uid="uid://b0n0scgqsavf1" path="res://Assets/Sprites/Characters/lila_moonwhisper.png" id="17_qaqk3"]
 [ext_resource type="PackedScene" path="res://Scenes/Components/RuleBook.tscn" id="18_ruleb"]
+[ext_resource type="PackedScene" path="res://Scenes/Components/CitationPrinter.tscn" id="19_citpr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xpcuk"]
 size = Vector2(377, 67)
 
-[node name="Gameplay" type="Node2D" unique_id=288264400 node_paths=PackedStringArray("_npcVisual", "_passportDocument", "_asylumPaperDocument", "_npcBoothController")]
+[node name="Gameplay" type="Node2D" unique_id=288264400 node_paths=PackedStringArray("_npcVisual", "_passportDocument", "_asylumPaperDocument", "_npcBoothController", "_citationPrinter")]
 script = ExtResource("1_r5ka5")
 _npcVisual = NodePath("TEST3")
 _passportDocument = NodePath("DocumentDeskArea/Document2D")
 _asylumPaperDocument = NodePath("DocumentDeskArea/AsylumPaper2D")
 _npcBoothController = NodePath("TEST3")
+_citationPrinter = NodePath("CitationPrinter")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=299651725]
 position = Vector2(116.75003, 340.75)
@@ -98,6 +100,9 @@ texture = ExtResource("10_qaqk3")
 
 [node name="StampStation" parent="." unique_id=1011615191 instance=ExtResource("3_tdndw")]
 position = Vector2(1651, 487)
+
+[node name="CitationPrinter" parent="." instance=ExtResource("19_citpr")]
+position = Vector2(720, 928)
 
 [node name="Button (Placeholder)" type="Sprite2D" parent="." unique_id=1535450268]
 position = Vector2(1356.0001, 904)

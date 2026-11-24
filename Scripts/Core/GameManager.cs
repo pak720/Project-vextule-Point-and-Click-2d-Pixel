@@ -30,6 +30,7 @@ public partial class GameManager : Node2D
     [Export] private TrainTicket2D _trainTicketDocument;   // Node TrainTicket2D (Vé tàu trên bàn)
     [Export] private AsylumPaper2D _asylumPaperDocument;   // Node AsylumPaper2D (Đơn tị nạn trên bàn)
     [Export] private NPCBooth _npcBoothController;         // Node điều khiển NPC đi vào / rời quầy
+    [Export] private CitationPrinter _citationPrinter;     // Máy in biên bản vi phạm (Citation Printer)
     
     // Dữ liệu JSON của NPC hiện tại
     public PassportJsonData CurrentPassport { get; private set; }
@@ -47,6 +48,7 @@ public partial class GameManager : Node2D
     // Biến quản lý luồng NPC
     private Queue<string> _characterFoldersQueue = new Queue<string>();
     private Timer _nextNpcTimer;
+    private bool _hasReturnedCurrentNpc = false;
 
     public override void _EnterTree()
     {
@@ -70,6 +72,9 @@ public partial class GameManager : Node2D
             
         if (_asylumPaperDocument == null)
             _asylumPaperDocument = GetNodeOrNull<AsylumPaper2D>("DocumentDeskArea/AsylumPaper2D");
+
+        if (_citationPrinter == null)
+            _citationPrinter = GetNodeOrNull<CitationPrinter>("CitationPrinter");
             
         // 2. Khởi tạo Timer để chờ 3 giây trước khi gọi người tiếp theo
         _nextNpcTimer = new Timer();
@@ -132,6 +137,7 @@ public partial class GameManager : Node2D
         CurrentTicket = null;
         CurrentAsylumPaper = null;
         PlayerStampDecision = null;
+        _hasReturnedCurrentNpc = false;
         
         string globalPath = ProjectSettings.GlobalizePath(folderPath);
         if (!DirAccess.DirExistsAbsolute(folderPath) && !Directory.Exists(globalPath))
@@ -327,6 +333,10 @@ public partial class GameManager : Node2D
     /// </summary>
     public void ReturnDocumentsToNPC()
     {
+        if (_hasReturnedCurrentNpc)
+            return;
+        _hasReturnedCurrentNpc = true;
+
         // Dự phòng: Nếu chưa ghi nhận PlayerStampDecision, kiểm tra xem Hộ chiếu đã có dấu hay chưa
         bool isApproved = PlayerStampDecision ?? false;
         GD.Print($"[GameManager]: Thực hiện ReturnDocumentsToNPC với PlayerStampDecision = {PlayerStampDecision}");
@@ -339,6 +349,7 @@ public partial class GameManager : Node2D
         {
             string reason = DiscrepancyErrors.Count > 0 ? string.Join(" | ", DiscrepancyErrors) : "Hồ sơ hợp lệ nhưng bị từ chối.";
             GD.PrintErr($"🚨 [VI PHẠM QUY ĐỊNH - CITATION]: Xử lý sai! Lý do: {reason}");
+            _citationPrinter?.PrintCitation(reason);
         }
         
         if (_npcBoothController != null)
